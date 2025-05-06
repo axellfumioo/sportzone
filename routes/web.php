@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AIController;
+use App\Http\Controllers\PromoController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\SportsController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,10 +25,11 @@ Route::get('/promotion', function () {
     return view('promotion.index');
 });
 
+Route::get('/promotion', [PromoController::class, 'view']);
 Route::get('/sports/{sports}', [SportsController::class, 'view']);
-Route::get('/book/{arena}', function () {
-    return view('book.index');
-});
+Route::get('/book/{slug}', [BookController::class, 'view']);
+
 Route::get('/ai', function () {
-    return view('tanyaai.index');
+    return view('');
 });
+Route::get('/ai', [AIController::class, 'view']);

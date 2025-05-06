@@ -11,49 +11,50 @@
                     <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
                     </svg>
-                    Buka: 09:00 - 21:00
+                    Buka: {{$arenas->arena_opening_hours}} - {{$arenas->arena_closing_hours}}
                 </span>
             </div>
             <img src="https://images.unsplash.com/photo-1560990817-aaa93354ea9c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Go-kart track" class="w-full h-64 object-cover" />
             <div class="absolute bottom-0 left-0 right-0 p-8 z-20">
                 <div class="max-w-5xl mx-auto">
                     <div class="flex items-center mb-2">
+                        @if($arenas->arena_reviews > 10)
                         <span class="bg-yellow-400 text-yellow-800 text-xs font-bold px-2 py-1 rounded mr-2">BESTSELLER</span>
+                        @endif
                         <div class="flex items-center text-yellow-400">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <span class="ml-1 text-white font-medium">4.8</span>
-                            <span class="ml-1 text-white opacity-80">(2,345)</span>
+                            @for($i = 1; $i <= 5; $i++) @if($arenas->arena_rating >= $i)
+                                <i class="fas fa-star"></i>
+                                @elseif($arenas->arena_rating > $i - 1)
+                                <i class="fas fa-star-half-alt"></i>
+                                @else
+                                <i class="far fa-star"></i>
+                                @endif
+                                @endfor
+                                <span class="ml-1 text-white font-medium">{{$arenas->arena_rating}}</span>
+                                <span class="ml-1 text-white opacity-80">({{$arenas->arena_reviews}} Reviews)</span>
                         </div>
                     </div>
-                    <h1 class="text-4xl font-bold text-white mb-2">Go-kart Easy PIK 2</h1>
-                    <p class="text-lg text-white opacity-90 mb-3">Sensasi balap gokart dengan trek seru dan menantang 🔥</p>
+                    <h1 class="text-4xl font-bold text-white mb-2">{{$arenas->arena_name}}</h1>
+                    <p class="text-lg text-white opacity-90 mb-3">{{$arenas->arena_description}}</p>
                     <div class="flex flex-wrap items-center gap-4 text-white">
                         <div class="flex items-center">
                             <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                             </svg>
-                            <span>Pantai Indah Kapuk 2, Jakarta</span>
+                            <span>{{$arenas->arena_address}}</span>
                         </div>
                         <div class="flex items-center">
                             <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            <span>Durasi: 30 menit</span>
+                            @if($arenas->sports_list_id == "1")
+                            <span>Durasi: 1 jam</span>
+                            @elseif($arenas->sports_list_id == "2")
+                            <span>Durasi: 15 menit</span>
+                            @else
+                            <span>Durasi: 15 menit</span>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -251,12 +252,8 @@
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Tanggal</label>
                         <div class="relative">
-                            <input type="date" class="block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:border-[#8B1E1E] focus:ring-[#8B1E1E] focus:outline-none">
-                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
+                            <input type="date" class="block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:border-[#8B1E1E] focus:ring-[#8B1E1E] focus:outline-none appearance-none" style="-webkit-appearance: none; -moz-appearance: none; appearance: none;">
+
                         </div>
                     </div>
 

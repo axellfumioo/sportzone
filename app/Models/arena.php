@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
-use App\Models\SportsList; // ✅ HARUS huruf besar "App"
+use App\Models\SportsList;
 
 class Arena extends Model
 {

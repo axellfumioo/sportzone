@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('arenas', function (Blueprint $table) {
             $table->id();
-            $table->string('arena_slugs');
+            $table->string('arena_slugs')->unique();
             $table->foreignId('sports_list_id')->constrained()->onDelete('cascade');
             $table->string('arena_name');
             $table->string('arena_description');

@@ -6,14 +6,14 @@
         <h2 class="text-3xl font-bold text-[#8B1E1E] text-center mb-12">Tanya AI</h2>
         <div class="bg-white w-3xl shadow-lg rounded-xl">
             <div class="h-100 mx-8 my-8"> {{-- THIS IS CHAT--}}
+                <div class="flex justify-start">
+                    <div class="p-4 bg-[#8B1E1D] user-chat rounded-xl w-fit lg:max-w-3/5 max-w-4/5 motion-preset-fade motion-duration-3000">
+                        <h1 class="mb-2 font-bold text-white">Selamat datang! Saya adalah asisten AI yang siap membantu Anda memahami berbagai informasi permainan</h1>
+                    </div>
+                </div>
                 <div class="flex justify-end">
                     <div class=" p-4 bg-gray-200 user-chat rounded-xl w-fit lg:max-w-3/5 max-w-4/5 motion-preset-fade motion-duration-200">
                         <h1 class="font-bold text-black">ara ara</h1>
-                    </div>
-                </div>
-                <div class="flex justify-start">
-                    <div class="p-4 bg-[#8B1E1D] user-chat rounded-xl w-fit lg:max-w-3/5 max-w-4/5 motion-preset-fade motion-duration-3000">
-                        <h1 class="mb-2 font-bold text-white">aww</h1>
                     </div>
                 </div>
             </div>

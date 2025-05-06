@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use App\Models\Arena;
@@ -19,6 +18,11 @@ class SportsList extends Model
     public function arenas()
     {
         return $this->hasMany(Arena::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'sports_id');
     }
 
 }
