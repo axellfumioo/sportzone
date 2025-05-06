@@ -260,64 +260,75 @@
                     <!-- Session Time -->
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Sesi</label>
-                        <div class="grid grid-cols-3 gap-2">
-                            <button class="py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">09:00</button>
-                            <button class="py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">10:00</button>
-                            <button class="py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">11:00</button>
-                            <button class="py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">13:00</button>
-                            <button class="py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">14:00</button>
-                            <button class="py-2 px-1 border border-[#8B1E1E] bg-[#fef2f2] rounded-lg text-xs font-medium text-[#8B1E1E]">15:00</button>
-                            <button class="py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">16:00</button>
-                            <button class="py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">17:00</button>
-                            <button class="py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">18:00</button>
-                        </div>
-                    </div>
+                        <div class="grid grid-cols-3 gap-2" id="session-time-group">
+    <button data-time="09:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">09:00</button>
+    <button data-time="10:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">10:00</button>
+    <button data-time="11:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">11:00</button>
+    <button data-time="13:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">13:00</button>
+    <button data-time="14:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">14:00</button>
+    <button data-time="15:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">15:00</button>
+    <button data-time="16:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">16:00</button>
+    <button data-time="17:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">17:00</button>
+    <button data-time="18:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">18:00</button>
+</div>
 
                     <!-- Ticket Counter -->
                     <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Jumlah Tiket</label>
-                        <div class="flex justify-between items-center p-4 border border-gray-200 rounded-lg">
-                            <div>
-                                <p class="font-semibold">Per Pax</p>
-                                <p class="text-sm text-gray-500">IDR 250.000/pax</p>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <button class="w-8 h-8 flex justify-center items-center rounded-full border hover:bg-gray-100 text-[#8B1E1E] transition focus:outline-none">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
-                                    </svg>
-                                </button>
-                                <span class="font-semibold text-base">1</span>
-                                <button class="w-8 h-8 flex justify-center items-center rounded-full border hover:bg-gray-100 text-[#8B1E1E] transition focus:outline-none">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+    <label class="block text-sm font-medium text-gray-700 mb-2">Jumlah Tiket</label>
+    <div class="flex justify-between items-center p-4 border border-gray-200 rounded-lg">
+        <div>
+            <p class="font-semibold">Per Pax</p>
+            <p class="text-sm text-gray-500">IDR <span id="harga-satuan">250000</span>/pax</p>
+        </div>
+        <div class="flex items-center gap-4">
+    <button
+        id="kurangi"
+        class="w-8 h-8 flex justify-center items-center rounded-full border border-[#8B1E1E] text-[#8B1E1E]
+               transition duration-200 ease-in-out transform hover:scale-110 hover:shadow-md active:scale-95 active:shadow-inner">
+        −
+    </button>
+    
+    <span id="jumlah" class="text-lg font-semibold">1</span>
+    
+    <button
+        id="tambah"
+        class="w-8 h-8 flex justify-center items-center rounded-full border border-[#8B1E1E] text-[#8B1E1E]
+               transition duration-200 ease-in-out transform hover:scale-110 hover:shadow-md active:scale-95 active:shadow-inner">
+        +
+    </button>
+</div>
 
-                    <!-- Price Summary -->
-                    <div class="space-y-3 mb-6">
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-600">Harga Tiket (1x)</span>
-                            <span class="font-medium">IDR 250.000</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-600">Biaya Layanan</span>
-                            <span class="font-medium">IDR 10.000</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-600">Pajak (11%)</span>
-                            <span class="font-medium">IDR 28.600</span>
-                        </div>
-                        <div class="border-t border-gray-200 pt-3 mt-3">
-                            <div class="flex justify-between">
-                                <span class="font-semibold">Total Pembayaran</span>
-                                <span class="font-bold text-[#8B1E1E]">IDR 288.600</span>
-                            </div>
-                        </div>
-                    </div>
+</div>
+
+<!-- Ringkasan Harga -->
+<div class="space-y-3 mb-6 text-sm">
+    <div class="flex justify-between">
+        <span>Harga Tiket (x)</span>
+        <span>IDR <span id="harga-tiket">250000</span></span>
+    </div>
+    <div class="flex justify-between">
+        <span>Biaya Layanan</span>
+        <span>IDR <span id="biaya-layanan">10000</span></span>
+    </div>
+    <div class="flex justify-between">
+        <span>Pajak (11%)</span>
+        <span>IDR <span id="pajak">28600</span></span>
+    </div>
+    <div class="border-t border-gray-200 pt-3 mt-3 flex justify-between font-semibold">
+        <span>Total Pembayaran</span>
+        <span class="text-[#8B1E1E] font-bold">IDR <span id="total">288600</span></span>
+    </div>
+</div>
+
+<!-- Input hidden jika ingin dikirim ke backend -->
+<input type="hidden" name="jumlah_tiket" id="input-jumlah" value="1">
+<input type="hidden" name="total_bayar" id="input-total" value="288600">
+
+
+<!-- Input hidden jika ingin dikirim ke backend -->
+<input type="hidden" name="jumlah_tiket" id="input-jumlah" value="1">
+<input type="hidden" name="total_bayar" id="input-total" value="288600">
+
 
                     <!-- Promo Code -->
                     <div class="mb-6">
@@ -340,4 +351,92 @@
             </div>
         </div>
     </div>
+    <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.session-button');
+    const hiddenInput = document.getElementById('selected-time');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Reset semua button
+        buttons.forEach(b => {
+          b.classList.remove('border-[#8B1E1E]', 'bg-[#fef2f2]', 'text-[#8B1E1E]');
+          b.classList.add('border-gray-200', 'text-gray-800');
+        });
+
+        // Tambahkan highlight ke yang aktif
+        button.classList.remove('border-gray-200', 'text-gray-800');
+        button.classList.add('border-[#8B1E1E]', 'bg-[#fef2f2]', 'text-[#8B1E1E]');
+
+        // Simpan nilai ke hidden input
+        hiddenInput.value = button.getAttribute('data-time');
+      });
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // === Highlight Session Time ===
+    const buttons = document.querySelectorAll('.session-button');
+    const hiddenInput = document.getElementById('selected-time') || document.createElement('input');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        buttons.forEach(b => {
+          b.classList.remove('border-[#8B1E1E]', 'bg-[#fef2f2]', 'text-[#8B1E1E]');
+          b.classList.add('border-gray-200', 'text-gray-800');
+        });
+
+        button.classList.remove('border-gray-200', 'text-gray-800');
+        button.classList.add('border-[#8B1E1E]', 'bg-[#fef2f2]', 'text-[#8B1E1E]');
+
+        hiddenInput.value = button.getAttribute('data-time');
+      });
+    });
+
+    // === Hitung Total Harga Dinamis ===
+    const hargaSatuan = 250000;
+    const biayaLayanan = 10000;
+
+    const btnTambah = document.getElementById('tambah');
+    const btnKurangi = document.getElementById('kurangi');
+    const jumlahTiketEl = document.getElementById('jumlah');
+    const hargaTiketEl = document.getElementById('harga-tiket');
+    const pajakEl = document.getElementById('pajak');
+    const totalEl = document.getElementById('total');
+
+    const inputJumlah = document.getElementById('input-jumlah');
+    const inputTotal = document.getElementById('input-total');
+
+    let jumlah = parseInt(inputJumlah.value) || 1;
+
+    function updateHarga() {
+      const hargaTiket = hargaSatuan * jumlah;
+      const pajak = Math.round((hargaTiket + biayaLayanan) * 0.11);
+      const total = hargaTiket + biayaLayanan + pajak;
+
+      jumlahTiketEl.textContent = jumlah;
+      hargaTiketEl.textContent = hargaTiket;
+      pajakEl.textContent = pajak;
+      totalEl.textContent = total;
+
+      inputJumlah.value = jumlah;
+      inputTotal.value = total;
+    }
+
+    btnTambah.addEventListener('click', () => {
+      jumlah++;
+      updateHarga();
+    });
+
+    btnKurangi.addEventListener('click', () => {
+      if (jumlah > 1) {
+        jumlah--;
+        updateHarga();
+      }
+    });
+
+    updateHarga(); // inisialisasi
+  });
+</script>
+
 </section>
