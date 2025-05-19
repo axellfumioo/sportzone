@@ -13,6 +13,9 @@ class Arena extends Model
 
     protected $fillable = [
         'arena_name',
+        'arena_slugs',
+        'sports_list_id',
+        'arena_track',
         'arena_description',
         'arena_rating',
         'arena_reviews',
@@ -23,6 +26,7 @@ class Arena extends Model
         'arena_price_range',
         'selection_type',
         'selections',
+        'arena_background',
     ];
 
     public function sportsList()

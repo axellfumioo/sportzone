@@ -9,9 +9,9 @@
 
     <!-- Left menu (hidden on mobile) -->
     <ul class="hidden md:flex space-x-4 lg:space-x-6 text-sm font-medium">
-        <li><a href="/" class="text-[#8B1E1E]">Home</a></li>
+        <li><a href="/" class="{{ request()->is('/') ? 'text-[#8B1E1E]' : 'text-[#2b3c59]' }}">Home</a></li>
         <li class="relative group">
-            <button class="text-[#2b3c59] flex items-center justify-center" id="bookingDropdownBtn">
+            <button class="{{ request()->is('sports/*') ? 'text-[#8B1E1E]' : 'text-[#2b3c59]' }} flex items-center justify-center" id="bookingDropdownBtn">
                 Booking
                 <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -19,18 +19,18 @@
             </button>
             <ul id="bookingDropdownMenu" class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg rounded-md opacity-0 invisible transition-all duration-200 z-50" role="menu" aria-labelledby="bookingDropdownButton">
                 <li role="none">
-                    <a href="/sports/gokart" role="menuitem" class="block px-4 py-2 text-[#2b3c59] hover:bg-gray-100 rounded-t-md">Go-Kart</a>
+                    <a href="/sports/gokart" role="menuitem" class="block px-4 py-2 {{ request()->is('sports/gokart') ? 'text-[#8B1E1E]' : 'text-[#2b3c59]' }} hover:bg-gray-100 rounded-t-md">Go-Kart</a>
                 </li>
                 <li role="none">
-                    <a href="/sports/billiard" role="menuitem" class="block px-4 py-2 text-[#2b3c59] hover:bg-gray-100">Billiard</a>
+                    <a href="/sports/billiard" role="menuitem" class="block px-4 py-2 {{ request()->is('sports/billiard') ? 'text-[#8B1E1E]' : 'text-[#2b3c59]' }} hover:bg-gray-100">Billiard</a>
                 </li>
                 <li role="none">
-                    <a href="/sports/bowling" role="menuitem" class="block px-4 py-2 text-[#2b3c59] hover:bg-gray-100 rounded-b-md">Bowling</a>
+                    <a href="/sports/bowling" role="menuitem" class="block px-4 py-2 {{ request()->is('sports/bowling') ? 'text-[#8B1E1E]' : 'text-[#2b3c59]' }} hover:bg-gray-100 rounded-b-md">Bowling</a>
                 </li>
             </ul>
         </li>
-        <li><a href="/promotion" class="text-[#2b3c59]">Promo</a></li>
-        <li><a href="/ai" class="text-[#2b3c59]">Tanya AI</a></li>
+        <li><a href="/promotion" class="{{ request()->is('promotion') ? 'text-[#8B1E1E]' : 'text-[#2b3c59]' }}">Promo</a></li>
+        <li><a href="/about" class="{{ request()->is('ai') ? 'text-[#8B1E1E]' : 'text-[#2b3c59]' }}">Tentang Kami</a></li>
     </ul>
 
     <!-- Logo - centered on desktop, left-aligned after menu button on mobile -->
@@ -40,8 +40,44 @@
 
     <!-- Auth Buttons - hidden on mobile -->
     <div class="hidden md:flex space-x-2 lg:space-x-4">
-        <a href="/auth/login" class="bg-gray-200 text-[#2b3c59] px-3 py-1 lg:px-5 lg:py-2 rounded-lg shadow text-sm">Login</a>
-        <a href="/auth/register" class="bg-[#8B1E1E] text-white px-3 py-1 lg:px-5 lg:py-2 rounded-lg shadow text-sm">Register</a>
+        @auth
+            <div class="relative">
+            <button id="userDropdownBtn" class="flex items-center space-x-2 bg-gray-200 text-[#2b3c59] px-3 py-1 lg:px-5 lg:py-2 rounded-lg shadow text-sm">
+                <span>{{ Auth::user()->name }}</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+            <div id="userDropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg rounded-md hidden transition-all duration-200">
+                <a href="/profile" class="block px-4 py-2 text-[#2b3c59] hover:bg-gray-100">Profile</a>
+                <form method="POST" action="/auth/logout">
+                @csrf
+                <button type="submit" class="w-full text-left px-4 py-2 text-[#8B1E1E] hover:bg-gray-100">Logout</button>
+                </form>
+            </div>
+            </div>
+            <script>
+            const userDropdownBtn = document.getElementById('userDropdownBtn');
+            const userDropdownMenu = document.getElementById('userDropdownMenu');
+
+            if (userDropdownBtn && userDropdownMenu) {
+                userDropdownBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                userDropdownMenu.classList.toggle('hidden');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                if (!userDropdownBtn.contains(e.target) && !userDropdownMenu.contains(e.target)) {
+                    userDropdownMenu.classList.add('hidden');
+                }
+                });
+            }
+            </script>
+        @else
+            <a href="/auth/login" class="bg-gray-200 text-[#2b3c59] px-3 py-1 lg:px-5 lg:py-2 rounded-lg shadow text-sm">Login</a>
+            <a href="/auth/register" class="bg-[#8B1E1E] text-white px-3 py-1 lg:px-5 lg:py-2 rounded-lg shadow text-sm">Register</a>
+        @endauth
     </div>
 
     <!-- Mobile account icon (visible only on mobile) -->

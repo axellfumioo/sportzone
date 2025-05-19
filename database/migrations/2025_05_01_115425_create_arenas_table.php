@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('arenas', function (Blueprint $table) {
             $table->id();
-            $table->string('arena_slugs')->unique();
+            $table->string('arena_slugs')->unique()->nullable();
             $table->foreignId('sports_list_id')->constrained()->onDelete('cascade');
             $table->string('arena_name');
+            $table->enum('arena_track', ['Indoor', 'Outdoor']);
             $table->string('arena_description');
             $table->string('arena_rating');
             $table->string('arena_reviews');
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->string('arena_price_range');
             $table->enum('selection_type', ['difficulty', 'room']);
             $table->json('selections');
+            $table->string('arena_background');
             $table->timestamps();
         });
 

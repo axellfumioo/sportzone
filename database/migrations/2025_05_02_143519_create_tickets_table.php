@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('sports_id');
+            $table->string('selections');
             $table->integer('qty');
+            $table->time('time');
             $table->date('validuntil');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

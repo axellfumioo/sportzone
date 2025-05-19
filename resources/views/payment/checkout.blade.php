@@ -7,40 +7,11 @@
 
     <!-- Konten Utama -->
     <div class="relative z-10 max-w-4xl mx-auto bg-white/90 shadow-lg rounded-xl p-8 space-y-10 backdrop-blur-sm">
-        <!-- Judul -->
-        <div>
-            <h2 class="text-3xl font-bold text-[#8B1E1E]">Checkout Tiket Gokart</h2>
-            <p class="text-gray-700 mt-1">Lengkapi informasi & pilih metode pembayaran.</p>
-        </div>
-
-        <!-- Checkbox Gift -->
-        <div class="space-y-2">
-            <h3 class="text-xl font-semibold text-[#8B1E1E]">Informasi Tambahan</h3>
-
-            <label class="inline-flex items-center">
-                <input type="checkbox" class="form-checkbox h-5 w-5 text-[#8B1E1E]" x-model="isGift">
-                <span class="ml-2 text-[#8B1E1E] font-medium">Ingatkan saya melalui WhatsApp</span>
-            </label>
-
-            <!-- Form Penerima Hadiah -->
-            <div x-show="isGift" x-transition class="mt-4 bg-[#f8f6f1] p-4 rounded-lg space-y-4">
-                <h4 class="text-lg font-semibold text-[#8B1E1E]">Pengaturan</h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <select name="cars" class="border p-3 rounded-lg w-full" id="cars">
-                        <option value="volvo">Ingatkan 30 menit sebelum nya</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
-                    </select>
-                    <input type="email" placeholder="Email Penerima" class="border p-3 rounded-lg w-full" />
-                </div>
-                <textarea placeholder="Pesan untuk penerima (Opsional)" class="w-full border p-3 rounded-lg resize-none h-24"></textarea>
-            </div>
-        </div>
 
         <!-- Metode Pembayaran -->
         <div class="space-y-4">
             <h3 class="text-xl font-semibold text-[#8B1E1E]">Metode Pembayaran</h3>
+            <p class="text-gray-700 mt-1">Silahkan pilih metode pembayaran.</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- ... sama seperti sebelumnya ... -->
                 <label class="flex items-center gap-4 p-4 border rounded-lg cursor-pointer bg-white hover:bg-gray-50 transition peer-checked:ring-2 peer-checked:ring-[#8B1E1E]">

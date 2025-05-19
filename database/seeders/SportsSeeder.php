@@ -40,6 +40,7 @@ class SportsSeeder extends Seeder
                 'sports_list_id'      => 2, // Make sure this matches an existing sports_lists id
                 'arena_slugs'         => $arena_slug,
                 'arena_name'          => $arena_name,
+                'arena_track'          => 'Indoor',
                 'arena_description'   => 'Sensasi balap gokart dengan trek seru dan menantang 🔥',
                 'arena_rating'        => '4.8',
                 'arena_reviews'       => '2345',
@@ -50,6 +51,7 @@ class SportsSeeder extends Seeder
                 'arena_price_range'   => 'Rp.120.000 - Rp.200.000',
                 'selection_type'      => 'difficulty',
                 'selections'          => json_encode(['easy', 'medium', 'hard']),
+                'arena_background'      => 'https://images.unsplash.com/photo-1560990817-aaa93354ea9c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
             ],
 
         ];
