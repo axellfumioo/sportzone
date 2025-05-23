@@ -12,7 +12,7 @@
             <div class="mt-4 md:mt-0">
                 @php
                 $statusClass = match($order->payment_status) {
-                'pending' => 'bg-yellow-100 text-yellow-800',
+                'unpaid' => 'bg-yellow-100 text-yellow-800',
                 'paid' => 'bg-green-100 text-green-800',
                 'failed' => 'bg-red-100 text-red-800',
                 default => 'bg-gray-100 text-gray-800'
@@ -26,15 +26,6 @@
 
         <!-- Order Progress Tracker -->
         <div class="mb-8">
-            @php
-            $progressStep = match($order->payment_status) {
-            'pending' => 1,
-            'paid' => 2,
-            'completed' => 3,
-            default => 1
-            };
-            @endphp
-
         </div>
 
         <!-- Order Summary Cards -->
@@ -60,10 +51,6 @@
                         <span class="text-gray-500 w-24 flex-shrink-0">Phone:</span>
                         <span class="font-medium text-gray-800">{{ $order->phone }}</span>
                     </div>
-                    <div class="flex items-start">
-                        <span class="text-gray-500 w-24 flex-shrink-0">Address:</span>
-                        <span class="font-medium text-gray-800">{{ $order->address }}</span>
-                    </div>
                 </div>
             </div>
 
@@ -83,19 +70,6 @@
                     <div class="flex items-start">
                         <span class="text-gray-500 w-24 flex-shrink-0">Method:</span>
                         <span class="font-medium text-gray-800 uppercase">{{ $order->paymentMethod }}</span>
-                    </div>
-                    <div class="flex items-start">
-                        <span class="text-gray-500 w-24 flex-shrink-0">Status:</span>
-                        @php
-                        $statusClass = match($order->payment_status) {
-                        'unpaid' => 'bg-yellow-400 text-white',
-                        'paid' => 'bg-green-400 text-white',
-                        default => 'bg-gray-100 text-gray-800'
-                        };
-                        @endphp
-                        <span class="px-2 py-1 rounded-full text-xs font-medium {{ $statusClass }}">
-                            {{ ucfirst($order->payment_status) }}
-                        </span>
                     </div>
                     <div class="flex items-start">
                         <span class="text-gray-500 w-24 flex-shrink-0">Total:</span>
@@ -177,9 +151,39 @@
                 </button>
             </div>
             @elseif($order->payment_status === 'paid')
-            <div>
-                <p class="text-sm text-gray-500">This order has been paid successfully.</p>
+            <div class="flex items-center justify-center w-full flex-col space-y-6">
+    <h2 class="text-2xl font-semibold text-gray-900">Tunjukkan ke Kasir</h2>
+
+    <!-- Ticket Status -->
+    <div class="mb-4">
+        <span class="px-4 py-2 rounded-full text-sm font-medium {{ $ticket->is_used === 'used' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800' }}">
+            {{ $ticket->is_used === 'used' ? 'Sudah Digunakan' : 'Aktif' }}
+        </span>
+    </div>
+
+    <!-- QR Code -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+        @if(isset($qrCode) && $qrCode)
+            <div class="flex justify-center items-center flex-col">
+                <img src="{{ $qrCode }}" class="w-64 h-64 mx-auto" alt="QR Code Pembayaran">
+                <p class="mt-2 font-semibold text-gray-500">{{ $order->orderId }}</p>
             </div>
+        @else
+            <div class="w-64 h-64 bg-gray-100 rounded-xl flex items-center justify-center">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-gray-300 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h4l2 3h6a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 0l2 6m0 0l2-6m-2 6h12"></path>
+                        </svg>
+                    </div>
+                    <p class="text-gray-500 text-sm">Memuat QR Code...</p>
+                </div>
+            </div>
+        @endif
+    </div>
+
+    <p class="text-gray-600 text-center text-sm max-w-xs">Tunjukkan QR code ini kepada kasir untuk menyelesaikan pembayaran</p>
+</div>
             @else
             <div>
                 <p class="text-sm text-gray-500">Payment failed. Please try again or contact support.</p>

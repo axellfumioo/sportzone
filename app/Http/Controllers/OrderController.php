@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Arena;
 use App\Models\OrderHistory;
+use App\Models\ticket;
 use Faker\Guesser\Name;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,11 +38,11 @@ class OrderController extends Controller
 
         $orderId = uniqid("SZ_");
         $userId = Auth::id();
-        $user = "axel";
-        $email = "axel@gmail.com";
-        $phone = "081386271505";
-        $name = "axel";
-        $address = "perum";
+        $user = Auth::user();
+        $email = $user->email;
+        $phone = $user->phone;
+        $name = $user->name;
+        $address = "Jalan raya purwokerto purwokerto";
 
         $arena = Arena::where('id', $validated['arena_id'])->first();
 
@@ -95,7 +96,7 @@ class OrderController extends Controller
         try {
             DB::table('order_histories')->insert([
                 'orderId'             => $orderId,
-                'name'               => $name,
+                'name'               => $userId,
                 'email'              => $email,
                 'phone'              => $phone,
                 'address'            => $address,
@@ -108,18 +109,30 @@ class OrderController extends Controller
                 'created_at'         => now(),
                 'updated_at'         => now(),
             ]);
-
-            // $this->whatsAppNotificationCheckOut(
-            //     $validated['orderId'],
-            //     $validated['name'],
-            //     $validated['phone'],
-            //     $validated['address'],
-            //     $validated['totalItems'],
-            //     $validated['cartTotal'],
-            //     $validated['paymentMethod'],
-            //     json_decode($validated['Items']),
-            //     $snapToken->redirect_url
-            // );
+            $item = "Tiket " . $arena->arena_name;
+            $ewallet = "ewallet";
+            $this->whatsAppNotificationCheckOut(
+                $orderId,
+                $name,
+                $email,
+                $phone,
+                $address,
+                $cartTotal,
+                $validated['jumlah_tiket'],
+                $item,
+                $ewallet,
+                $snapToken->redirect_url
+            );
+            DB::table('tickets')->insert([
+                'user_id'               => $userId,
+                'sports_id'              => $arena->sports_list_id,
+                'selections'              => "ga ada",
+                'qty'              => $validated['jumlah_tiket'],
+                'time'              => $validated['selected_time'],
+                'validuntil'              => $validated['selected_date'],
+                'is_used'              => "unused",
+                'orderId'              => $orderId,
+            ]);
             return redirect("/order/{$orderId}")->with('success', 'Order berhasil dibuat!');
         } catch (\Exception $e) {
             return response()->json([
@@ -131,13 +144,16 @@ class OrderController extends Controller
     public function viewOrder($id)
     {
         $order = OrderHistory::where('orderId', $id)->first();
-
         if (!$order) {
             return redirect('/')->with('error', 'Order tidak ditemukan.');
         }
+        $ticket = ticket::where('orderId', $order->orderId)->first();
+
+        $generator = new \Picqer\Barcode\BarcodeGeneratorHTML();
+        $qrCode = 'https://api.qrserver.com/v1/create-qr-code/?size=512x512&data=' . url('/') . $order->orderId;
 
         $order->items = json_decode($order->items);
-        return view('payment.details', compact('order'));
+        return view('payment.details', compact('order', 'qrCode', 'ticket'));
     }
 
     public function callback(Request $request)
@@ -174,24 +190,24 @@ class OrderController extends Controller
                     if ($fraudStatus == 'challenge') {
                         $order->update(['payment_status' => 'unpaid']);
                     } else {
-                        // $this->whatsAppNotificationPaid(
-                        //     $order->name,
-                        //     $orderId,
-                        //     $order->cartTotal,
-                        //     $order->phone
-                        // );
+                        $this->whatsAppNotificationPaid(
+                            $order->name,
+                            $orderId,
+                            $order->totalPrice,
+                            $order->phone
+                        );
                         $order->update(['payment_status' => 'paid']);
                     }
                 }
                 break;
 
             case 'settlement':
-                // $this->whatsAppNotificationPaid(
-                //     $order->name,
-                //     $orderId,
-                //     $order->cartTotal,
-                //     $order->phone
-                // );
+                $this->whatsAppNotificationPaid(
+                    $order->name,
+                    $orderId,
+                    $order->totalPrice,
+                    $order->phone
+                );
                 $order->update(['payment_status' => 'paid']);
                 break;
 
@@ -221,13 +237,14 @@ class OrderController extends Controller
             return redirect('/')->with('error', 'Order tidak ditemukan.');
         }
 
-        return redirect("/order/{$orderId}")->with('success', 'Pembayaran berhasil!')->with('order', $order);
+        $generator = new \Picqer\Barcode\BarcodeGeneratorHTML();
+        $barcode = $generator->getBarcode($orderId, $generator::TYPE_CODE_128);
+        return redirect("/order/{$orderId}")->with('success', 'Pembayaran berhasil!')->with('order', $order, 'barcode', $barcode);
     }
 
 
-    public function whatsAppNotificationCheckOut($orderId, $name, $phone, $address, $totalItems, $cartTotal, $paymentMethod, $items, $url)
+    public function whatsAppNotificationCheckOut($orderId, $name, $email, $phone, $address, $cartTotal, $jumlahtiket, $item, $ewallet, $url)
     {
-
         $phone = preg_replace('/[^0-9]/', '', $phone);
 
         if (substr($phone, 0, 1) === '0') {
@@ -238,31 +255,20 @@ class OrderController extends Controller
             $phone = '62' . $phone;
         }
 
-        $itemDetails = "";
-        foreach ($items as $item) {
-            if (is_object($item) && isset($item->name) && isset($item->quantity)) {
-                $itemDetails .= "- {$item->name} (Qty: {$item->quantity})\n";
-            } elseif (is_array($item) && isset($item['name']) && isset($item['quantity'])) {
-                $itemDetails .= "- {$item['name']} (Qty: {$item['quantity']})\n";
-            }
-        }
-
         $formattedTotal = 'Rp ' . number_format($cartTotal, 0, ',', '.');
 
-        $message = "Hai *{$name}*, terima kasih telah melakukan pemesanan di _Barakatih Kitchen_. Berikut adalah detail pesanan Anda:\n\n" .
+        $message = "Hai *{$name}*, terima kasih telah melakukan pemesanan di _SportZone_. Berikut adalah detail pesanan Anda:\n\n" .
             "Order ID: *{$orderId}*\n" .
             "Nama: *{$name}*\n" .
+            "Email: *{$email}*\n" .
             "Telepon: +*{$phone}*\n" .
-            "Alamat: *" . preg_replace('/\s+/', ' ', $address) . "*\n" .
-            "Total Item: *{$totalItems}*\n" .
+            "Jumlah Tiket: *{$jumlahtiket}*\n" .
+            "Item: *{$item}*\n" .
             "Total Pembayaran: *{$formattedTotal}*\n" .
-            "Metode Pembayaran: *" . strtoupper($paymentMethod) . "*\n\n" .
-            "Detail Item:\n" .
-            $itemDetails .
-            "\nSilakan lakukan pembayaran sesuai dengan metode yang Anda pilih. Link Pembayaran: *{$url}*";
+            "Metode Pembayaran: *" . strtoupper($ewallet) . "*\n\n" .
+            "Silakan lakukan pembayaran sesuai dengan metode yang Anda pilih.\nLink Pembayaran: *{$url}*";
 
         try {
-
             $token = config('services.fonnte.token');
 
             $response = Http::withHeaders([
@@ -275,7 +281,6 @@ class OrderController extends Controller
 
             $httpcode = $response->status();
             $error = !$response->successful();
-
 
             Log::info('Fonnte API call executed', [
                 'phone' => $phone,
@@ -308,7 +313,7 @@ class OrderController extends Controller
         }
     }
 
-    public function whatsAppNotificationPaid($name, $orderId, $cartTotal, $phone)
+    public function whatsAppNotificationPaid($name, $orderId, $totalPrice, $phone)
     {
 
         $phone = preg_replace('/[^0-9]/', '', $phone);
@@ -321,8 +326,8 @@ class OrderController extends Controller
             $phone = '62' . $phone;
         }
 
-        $formattedTotal = 'Rp ' . number_format($cartTotal, 0, ',', '.');
-        $message = "Hai *{$name}*, terima kasih telah melakukan pembayaran untuk pesanan Anda dengan ID *{$orderId}*.\n\n" .
+        $formattedTotal = 'Rp ' . number_format($totalPrice, 0, ',', '.');
+        $message = "Hallo *{$name}*, terima kasih telah melakukan pembayaran untuk pesanan Anda dengan ID *{$orderId}*.\n\n" .
             "Total Pembayaran: *{$formattedTotal}*\n\n" .
             "Jika ada pertanyaan, silakan hubungi kami.";
         try {

@@ -21,39 +21,35 @@
         <img src="{{asset('img/bg.png')}}" alt="Hero" class="absolute bottom-0 w-full h-full object-cover object-bottom" />
 
         <!-- Glass Panel -->
-        <div class="absolute top-38 left-1/2 transform -translate-x-1/2 w-[90%] max-w-6xl bg-white/70 backdrop-blur-md rounded-2xl p-8 shadow-md z-20">
-            <!-- Tabs -->
-            <div class="flex space-x-6 mb-6 text-base font-semibold">
-                <button class="px-6 py-2 border rounded-full border-[#8B1E1E] text-[#8B1E1E] bg-white shadow-sm">Gokart</button>
-                <button class="px-6 py-2 text-[#2B3C59]">Billiard</button>
-                <button class="px-6 py-2 text-[#2B3C59]">Bowling</button>
+        <div class="absolute top-24 left-1/2 transform -translate-x-1/2 w-[90%] max-w-6xl flex justify-center gap-8 z-20">
+            <!-- Gokart Card -->
+            <div class="bg-white/70 backdrop-blur-md rounded-2xl p-6 shadow-md flex flex-col items-center w-1/3 hover:scale-105 transition-transform cursor-pointer">
+            <i class="fas fa-car-side text-[#8B1E1E] text-6xl mb-4"></i>
+            <h3 class="text-2xl font-bold text-[#8B1E1E] mb-2">Gokart</h3>
+            <p class="text-[#2B3C59] text-center mb-4">Experience the thrill of racing on our professional track</p>
+            <a href="/sports/gokart" class="bg-[#8B1E1E] text-white px-6 py-2 rounded-md shadow hover:bg-[#751818]">
+                Select Gokart
+            </a>
             </div>
 
-            <!-- Input -->
-            <div class="grid grid-cols-3 gap-6 mb-6">
-                <div class="relative">
-                    <input type="hidden" name="selected_gokart" id="selected_gokart" value="">
-                    <button onclick="toggleDropdown()" class="px-6 py-3 rounded-md border border-gray-400 w-full text-lg text-left flex justify-between items-center">
-                        <span id="gokart_display">Select Gokart</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </button>
-                    <div id="dropdown" class="hidden absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-                        <a href="#" onclick="selectGokart('Gokart Type A')" class="block px-6 py-2 hover:bg-gray-100">Gokart Type A</a>
-                        <a href="#" onclick="selectGokart('Gokart Type B')" class="block px-6 py-2 hover:bg-gray-100">Gokart Type B</a>
-                        <a href="#" onclick="selectGokart('Gokart Type C')" class="block px-6 py-2 hover:bg-gray-100">Gokart Type C</a>
-                    </div>
-                </div>
-                <input type="text" class="px-6 py-3 rounded-md border border-gray-400 w-full text-lg" />
-                <input type="text" class="px-6 py-3 rounded-md border border-gray-400 w-full text-lg" />
+            <!-- Billiard Card -->
+            <div class="bg-white/70 backdrop-blur-md rounded-2xl p-6 shadow-md flex flex-col items-center w-1/3 hover:scale-105 transition-transform cursor-pointer">
+            <i class="fas fa-tablets text-[#8B1E1E] text-6xl mb-4"></i>
+            <h3 class="text-2xl font-bold text-[#8B1E1E] mb-2">Billiard</h3>
+            <p class="text-[#2B3C59] text-center mb-4">Play on premium tables in our elegant billiard hall</p>
+            <a href="/sports/billiard" class="bg-[#8B1E1E] text-white px-6 py-2 rounded-md shadow hover:bg-[#751818]">
+                Select Billiard
+            </a>
             </div>
 
-            <!-- Tombol -->
-            <div class="text-right">
-                <button class="bg-[#8B1E1E] text-white px-8 py-3 rounded-md shadow hover:bg-[#751818]">
-                    Continue <i class="fa-solid fa-arrow-right ml-2"></i>
-                </button>
+            <!-- Bowling Card -->
+            <div class="bg-white/70 backdrop-blur-md rounded-2xl p-6 shadow-md flex flex-col items-center w-1/3 hover:scale-105 transition-transform cursor-pointer">
+            <i class="fas fa-bowling-ball text-[#8B1E1E] text-6xl mb-4"></i>
+            <h3 class="text-2xl font-bold text-[#8B1E1E] mb-2">Bowling</h3>
+            <p class="text-[#2B3C59] text-center mb-4">Strike your way through our modern bowling lanes</p>
+            <a href="/sports/bowling" class="bg-[#8B1E1E] text-white px-6 py-2 rounded-md shadow hover:bg-[#751818]">
+                Select Bowling
+            </a>
             </div>
         </div>
 

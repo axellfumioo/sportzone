@@ -9,7 +9,7 @@
             @foreach ($arenas as $arena)
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
                 <div class="relative">
-                    <img src="/storage/{{$arena->arena_background}}" class="w-full h-56 object-cover" alt="{{ $arena->name }}" />
+                    <img src="{{$arena->arena_background}}" class="w-full h-56 object-cover" alt="{{ $arena->name }}" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
                     <div class="absolute top-3 right-2 z-10 flex gap-2">
                         <span class="bg-white text-[#8B1E1E] text-xs font-semibold px-2 py-1 rounded-md">{{ $arena->arena_track }}</span>

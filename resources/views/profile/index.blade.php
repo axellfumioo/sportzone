@@ -56,7 +56,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-base text-gray-500">Tiket Gokart</p>
-                            <h3 class="text-4xl font-bold text-[#8B1E1E]">{{ $ticket->where('sports_id', '2')->count() }}</h3>
+                            <h3 class="text-4xl font-bold text-[#8B1E1E]">{{ $ticket->where('sports_id', '2')->where('payment_status', 'paid')->count() }}</h3>
                         </div>
                         <span class="text-5xl transition-transform group-hover:scale-110">🏎️</span>
                     </div>
@@ -66,7 +66,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-base text-gray-500">Tiket Billiard</p>
-                            <h3 class="text-4xl font-bold text-[#8B1E1E]">{{ $ticket->where('sports_id', '1')->count() }}</h3>
+                            <h3 class="text-4xl font-bold text-[#8B1E1E]">{{ $ticket->where('sports_id', '1')->where('payment_status', 'paid')->count() }}</h3>
                         </div>
                         <span class="text-5xl transition-transform group-hover:scale-110">🎱</span>
                     </div>
@@ -76,7 +76,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-base text-gray-500">Tiket Bowling</p>
-                            <h3 class="text-4xl font-bold text-[#8B1E1E]">{{ $ticket->where('sports_id', '3')->count() }}</h3>
+                            <h3 class="text-4xl font-bold text-[#8B1E1E]">{{ $ticket->where('sports_id', '3')->where('payment_status', 'paid')->count() }}</h3>
                         </div>
                         <span class="text-5xl transition-transform group-hover:scale-110">🎳</span>
                     </div>

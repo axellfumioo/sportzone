@@ -20,8 +20,11 @@ return new class extends Migration
             $table->time('time');
             $table->date('validuntil');
             $table->timestamps();
+            $table->enum('is_used', ['used', 'unused'])->default('unused');
+            $table->enum('payment_status', ['unpaid', 'paid'])->default('unpaid');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('sports_id')->references('id')->on('sports_lists')->onDelete('cascade');
+            $table->string('orderId');
         });
     }
 

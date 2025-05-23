@@ -14,8 +14,12 @@ class ticket extends Model
         'user_id',
         'sports_id',
         'qty',
+        'is_used',
+        'payment_status',
         'validuntil',
+        'orderId',
     ];
+
     public function sport()
     {
         return $this->belongsTo(SportsList::class, 'sports_id');

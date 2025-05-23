@@ -106,7 +106,7 @@
                         <input required type="hidden" name="arena_id" id="arena_id" value="{{$arenas->id}}">
                     @if($arenas->sports_list_id == 2)
                     <!-- Difficulty Box -->
-                    <div class="bg-white p-6 rounded-2xl shadow-md">
+                    <div class="bg-white p-6 rounded-2xl shadow-md mb-4">
                         <h3 class="text-xl font-bold text-gray-900 flex items-center mb-5">
                             <i class="fa-solid fa-shield-halved w-5 h-5 mr-2 text-[#8B1E1E]"></i>
                             Pilih Difficulty
@@ -293,8 +293,11 @@
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Tanggal</label>
                         <div class="relative">
-                            <input required type="date" name="selected_date" class="block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:border-[#8B1E1E] focus:ring-[#8B1E1E] focus:outline-none appearance-none" style="-webkit-appearance: none; -moz-appearance: none; appearance: none;">
-
+                            <input required type="date" name="selected_date"
+                                class="block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:border-[#8B1E1E] focus:ring-[#8B1E1E] focus:outline-none appearance-none"
+                                style="-webkit-appearance: none; -moz-appearance: none; appearance: none;"
+                                min="<?php echo date('Y-m-d'); ?>"
+                            >
                         </div>
                     </div>
 
@@ -303,18 +306,33 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Sesi</label>
                         <div class="grid grid-cols-3 gap-2" id="session-time-group">
                             <input required type="hidden" id="selected_time" name="selected_time" value="">
-                            <button type="button" data-time="09:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">09:00</button>
-                            <button type="button" data-time="10:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">10:00</button>
-                            <button type="button" data-time="11:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">11:00</button>
-                            <button type="button" data-time="12:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">12:00</button>
-                            <button type="button" data-time="13:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">13:00</button>
-                            <button type="button" data-time="14:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">14:00</button>
-                            <button type="button" data-time="15:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">15:00</button>
-                            <button type="button" data-time="16:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">16:00</button>
-                            <button type="button" data-time="17:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">17:00</button>
-                            <button type="button" data-time="18:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">18:00</button>
-                            <button type="button" data-time="19:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">19:00</button>
-                            <button type="button" data-time="20:00" class="session-button py-2 px-1 border border-gray-200 rounded-lg text-xs font-medium text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2] focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]">20:00</button>
+                            @php
+                                $currentTime = \Carbon\Carbon::now('Asia/Jakarta');
+                            @endphp
+
+                            @php
+                                $opening = \Carbon\Carbon::createFromFormat('H:i', $arenas->arena_opening_hours);
+                                $closing = \Carbon\Carbon::createFromFormat('H:i', $arenas->arena_closing_hours);
+                                $times = [];
+                                while ($opening <= $closing) {
+                                    $times[] = $opening->format('H:i');
+                                    $opening->addHour();
+                                }
+                            @endphp
+                            @foreach($times as $time)
+                                @php
+                                    $buttonTime = \Carbon\Carbon::createFromFormat('H:i', $time);
+                                    $isDisabled = $currentTime->format('H:i') > $time;
+                                @endphp
+                                <button type="button"
+                                        data-time="{{ $time }}"
+                                        class="session-button py-2 px-1 border rounded-lg text-xs font-medium
+                                               {{ $isDisabled ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'border-gray-200 text-gray-800 hover:border-[#8B1E1E] hover:bg-[#fef2f2]' }}
+                                               focus:outline-none focus:ring-2 focus:ring-[#8B1E1E] focus:border-[#8B1E1E]"
+                                        {{ $isDisabled ? 'disabled' : '' }}>
+                                    {{ $time }}
+                                </button>
+                            @endforeach
                         </div>
 
                         <!-- Ticket Counter -->
@@ -367,12 +385,21 @@
                             </div> --}}
 
                             <!-- Submit Button -->
-                            <button type="submit" class="w-full bg-[#8B1E1E] hover:bg-[#701515] text-white py-4 px-6 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition flex items-center justify-center">
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                </svg>
-                                Lanjut ke Pembayaran
-                            </button>
+                            @auth
+                                <button type="submit" class="w-full bg-[#8B1E1E] hover:bg-[#701515] text-white py-4 px-6 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition flex items-center justify-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                                    </svg>
+                                    Lanjut ke Pembayaran
+                                </button>
+                            @else
+                                <a href="/auth/login" class="w-full bg-[#8B1E1E] hover:bg-[#701515] text-white py-4 px-6 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition flex items-center justify-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                                    </svg>
+                                    Login untuk Melanjutkan
+                                </a>
+                            @endauth
                             </form>
                         </div>
                     </div>

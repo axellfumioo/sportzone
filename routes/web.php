@@ -38,7 +38,7 @@ Route::get('/order/{id}', [OrderController::class, 'viewOrder']);
 Route::get('/sports/{sports}', [SportsController::class, 'view']);
 Route::get('/book/{slug}', [BookController::class, 'view']);
 Route::post('/order/save', [OrderController::class, 'store']);
-Route::get('/auth/logout', [AuthController::class, 'register']);
+Route::get('/auth/logout', [AuthController::class, 'logout']);
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::any('/transaction/callback', [OrderController::class, 'callback']);

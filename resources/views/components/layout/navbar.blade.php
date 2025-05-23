@@ -50,7 +50,7 @@
             </button>
             <div id="userDropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg rounded-md hidden transition-all duration-200">
                 <a href="/profile" class="block px-4 py-2 text-[#2b3c59] hover:bg-gray-100">Profile</a>
-                <form method="POST" action="/auth/logout">
+                <form method="GET" action="/auth/logout">
                 @csrf
                 <button type="submit" class="w-full text-left px-4 py-2 text-[#8B1E1E] hover:bg-gray-100">Logout</button>
                 </form>
