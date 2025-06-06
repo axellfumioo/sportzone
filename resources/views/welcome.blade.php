@@ -1,7 +1,7 @@
 @extends('components.layout')
 
 @section('content')
-<section class="relative bg-[#f8f6f1] overflow-hidden pt-24">
+<section class="relative bg-gray-50 overflow-hidden pt-24">
     <!-- Heading -->
     <div class="pt-8 pb-8 text-center">
         <h1 class="text-5xl font-extrabold text-[#8B1E1E] leading-tight tracking-wide">
@@ -55,23 +55,5 @@
 
     </div>
 </section>
-<script>
-    function toggleDropdown() {
-        document.getElementById('dropdown').classList.toggle('hidden');
-    }
-
-    function selectGokart(type) {
-        document.getElementById('selected_gokart').value = type;
-        document.getElementById('gokart_display').textContent = type;
-        document.getElementById('dropdown').classList.add('hidden');
-    }
-
-    window.onclick = function(event) {
-        if (!event.target.closest('button')) {
-            document.getElementById('dropdown').classList.add('hidden');
-        }
-    }
-
-</script>
 
 @endsection

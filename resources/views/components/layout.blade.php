@@ -7,14 +7,15 @@
     <script src="https://kit.fontawesome.com/c1cbeb7f83.js" crossorigin="anonymous"></script>
     <title>Sportzone - Book your own field</title>
     <!-- Styles / Scripts -->
-    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @endif
+    @livewireStyles
 </head>
 <body>
-    <div class="bg-gray-300">
+    <div class="bg-gray-50">
         @include('components.layout.navbar')
         @yield('content')
         @include('components.layout.footer')
     </div>
+    @livewireScripts
 </body>

@@ -1,7 +1,7 @@
 @extends('components.layout')
 
 @section('content')
-<div class="min-h-screen flex flex-col md:flex-row bg-[#f8f6f1]">
+<div class="min-h-screen flex flex-col md:flex-row bg-gray-50">
     <!-- Left Side -->
     <div class="md:w-1/2 hidden md:flex items-center justify-center bg-[#0a0a0a] relative">
         <img src="https://images.unsplash.com/photo-1544824158-f13eb5211474?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3" class="absolute w-full h-full object-cover opacity-40" alt="background">
@@ -12,7 +12,7 @@
     </div>
 
     <!-- Right Form Section -->
-    <div class="w-full md:w-1/2 flex items-center justify-center pb-10 pt-16 px-6 bg-[#f8f6f1]">
+    <div class="w-full md:w-1/2 flex items-center justify-center pb-10 pt-16 px-6 bg-gray-50">
         <form action="/auth/register" method="POST" class="w-full max-w-xl space-y-6">
             @csrf
 

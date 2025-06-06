@@ -12,7 +12,7 @@
                     {{$arenas->arena_opening_hours}} - {{$arenas->arena_closing_hours}}
                 </span>
             </div>
-            <img src="{{$arenas->arena_background}}" alt="Go-kart track" class="w-full h-64 object-cover" />
+            <img src="/storage/{{$arenas->arena_background}}" alt="Go-kart track" class="w-full h-64 object-cover" />
             <div class="absolute bottom-0 left-0 right-0 p-8 z-20">
                 <div class="max-w-5xl mx-auto">
                     <div class="flex items-center mb-2">

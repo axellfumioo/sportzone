@@ -1,7 +1,7 @@
 @extends('components.layout')
 
 @section('content')
-<div class="min-h-screen flex flex-col md:flex-row bg-[#f8f6f1]">
+<div class="min-h-screen flex flex-col md:flex-row bg-gray-50">
 
     <!-- Left Side -->
     <div class="md:w-1/2 hidden md:flex items-center justify-center bg-[#0a0a0a] relative">
@@ -14,7 +14,7 @@
     </div>
 
     <!-- Right Form Section -->
-    <div class="w-full md:w-1/2 flex items-center justify-center pb-10 pt-6 px-6 bg-[#f8f6f1]">
+    <div class="w-full md:w-1/2 flex items-center justify-center pb-10 pt-6 px-6 bg-gray-50">
         <form action="/auth/login" method="POST" class="w-full max-w-md space-y-6">
             @csrf
             <h2 class="text-4xl font-extrabold text-[#8B1E1E] text-center">Login 🛸</h2>

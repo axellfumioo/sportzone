@@ -33,7 +33,7 @@
                     </div>
                     <div class="md:w-1/2">
                         <div class="relative h-80 overflow-hidden rounded-lg shadow-xl">
-                            <img src="/api/placeholder/600/480" alt="SportZone Facility" class="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1560990817-aaa93354ea9c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="SportZone Facility" class="w-full h-full object-cover" />
                             <div class="absolute inset-0 bg-[#8B1E1E] opacity-20"></div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                     <!-- Gokart -->
                     <div class="bg-white rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
                         <div class="h-48 relative">
-                            <img src="/api/placeholder/400/300" alt="Gokart Track" class="w-full h-full object-cover" />
+                            <img src="https://plus.unsplash.com/premium_photo-1661373126081-62a7c99ee70e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Gokart Track" class="w-full h-full object-cover" />
                             <div class="absolute inset-0 bg-[#8B1E1E] opacity-20"></div>
                         </div>
                         <div class="p-6">
@@ -65,7 +65,7 @@
                     <!-- Biliard -->
                     <div class="bg-white rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
                         <div class="h-48 relative">
-                            <img src="/api/placeholder/400/300" alt="Billiard Tables" class="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1544281153-6603be88b354?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Billiard Tables" class="w-full h-full object-cover" />
                             <div class="absolute inset-0 bg-[#8B1E1E] opacity-20"></div>
                         </div>
                         <div class="p-6">
@@ -78,7 +78,7 @@
                     <!-- Bowling -->
                     <div class="bg-white rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
                         <div class="h-48 relative">
-                            <img src="/api/placeholder/400/300" alt="Bowling Alley" class="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1545056453-f0359c3df6db?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Bowling Alley" class="w-full h-full object-cover" />
                             <div class="absolute inset-0 bg-[#8B1E1E] opacity-20"></div>
                         </div>
                         <div class="p-6">
@@ -91,69 +91,13 @@
             </div>
         </div>
     </section>
-    <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4 text-center">Tim Kami</h2>
-                <div class="h-1 w-20 bg-[#8B1E1E] mx-auto mb-6"></div>
-                <p class="text-gray-600 text-center max-w-3xl mx-auto mb-12">Dibalik layanan prima SportZone adalah tim profesional kami yang berdedikasi untuk memberikan pengalaman terbaik bagi setiap pengunjung.</p>
-
-                <div class="grid md:grid-cols-4 gap-6">
-                    <!-- Team Member 1 -->
-                    <div class="bg-white rounded-lg overflow-hidden shadow-md text-center">
-                        <div class="h-56 relative">
-                            <img src="/api/placeholder/300/300" alt="CEO" class="w-full h-full object-cover" />
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-lg font-bold text-gray-800">Budi Santoso</h3>
-                            <p class="text-[#8B1E1E] font-medium">CEO & Founder</p>
-                        </div>
-                    </div>
-
-                    <!-- Team Member 2 -->
-                    <div class="bg-white rounded-lg overflow-hidden shadow-md text-center">
-                        <div class="h-56 relative">
-                            <img src="/api/placeholder/300/300" alt="Operations Manager" class="w-full h-full object-cover" />
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-lg font-bold text-gray-800">Siti Rahma</h3>
-                            <p class="text-[#8B1E1E] font-medium">Operations Manager</p>
-                        </div>
-                    </div>
-
-                    <!-- Team Member 3 -->
-                    <div class="bg-white rounded-lg overflow-hidden shadow-md text-center">
-                        <div class="h-56 relative">
-                            <img src="/api/placeholder/300/300" alt="Head Coach" class="w-full h-full object-cover" />
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-lg font-bold text-gray-800">Ahmad Fadli</h3>
-                            <p class="text-[#8B1E1E] font-medium">Head Coach</p>
-                        </div>
-                    </div>
-
-                    <!-- Team Member 4 -->
-                    <div class="bg-white rounded-lg overflow-hidden shadow-md text-center">
-                        <div class="h-56 relative">
-                            <img src="/api/placeholder/300/300" alt="Customer Relations" class="w-full h-full object-cover" />
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-lg font-bold text-gray-800">Maya Putri</h3>
-                            <p class="text-[#8B1E1E] font-medium">Customer Relations</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- CTA Section -->
     <section class="py-16 bg-[#8B1E1E] text-white">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="text-3xl font-bold mb-6">Siap untuk Pengalaman Bermain Terbaik?</h2>
                 <p class="text-lg opacity-90 mb-8">Pesan lapangan favorit Anda sekarang dan nikmati fasilitas olahraga premium kami.</p>
-                <button class="bg-white text-[#8B1E1E] px-8 py-3 rounded-lg font-bold text-lg shadow-lg hover:bg-gray-100 transition-colors duration-300">Pesan Sekarang</button>
+                <a href="/" class="bg-white text-[#8B1E1E] px-8 py-3 rounded-lg font-bold text-lg shadow-lg hover:bg-gray-100 transition-colors duration-300">Pesan Sekarang</a>
             </div>
         </div>
     </section>

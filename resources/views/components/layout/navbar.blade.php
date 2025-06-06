@@ -1,5 +1,17 @@
+<style>
+    /* Glass morphism effect */
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+</style>
+
+
 <!-- Responsive navbar with mobile menu -->
-<nav id="main-navbar" class="bg-[#FAF8F4] py-4 md:py-1 px-4 md:px-8 flex justify-between items-center fixed top-0 left-0 w-full z-50">
+<nav id="main-navbar" class="bg-white py-4 md:py-4 px-4 md:px-8 flex justify-between items-center fixed top-0 left-0 w-full z-50 border-b border-gray-200/50 transition-all duration-300 shadow-sm">
     <!-- Mobile menu button -->
     <button id="mobile-menu-button" class="md:hidden text-[#2b3c59] focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -7,76 +19,80 @@
         </svg>
     </button>
 
+    <!-- Logo - centered on desktop, left-aligned after menu button on mobile -->
+    <div class="flex items-center space-x-3">
+        <img src="{{ asset('img/sportzone_notext.png') }}" alt="Sportzone Logo" class="h-10 md:h-12" />
+        <span class="text-xl font-bold text-text-primary hidden sm:block text-[#2b3c59]">SportZone</span>
+    </div>
+
     <!-- Left menu (hidden on mobile) -->
-    <ul class="hidden md:flex space-x-4 lg:space-x-6 text-sm font-medium">
-        <li><a href="/" class="{{ request()->is('/') ? 'text-[#8B1E1E]' : 'text-[#2b3c59]' }}">Home</a></li>
+    <ul class="hidden md:flex space-x-4 lg:space-x-6 text-sm font-medium  items-center justify-center">
+        <li><a href="/" class="{{ request()->is('/') ? 'text-[#8B1E1E] bg-[#8B1E1E]/20 rounded-lg' : 'text-[#2b3c59] hover:bg-gray-100 rounded-lg' }} py-2 px-3">Home</a></li>
         <li class="relative group">
-            <button class="{{ request()->is('sports/*') ? 'text-[#8B1E1E]' : 'text-[#2b3c59]' }} flex items-center justify-center" id="bookingDropdownBtn">
+            <button class="{{ request()->is('sports/*') ? 'text-[#8B1E1E] bg-[#8B1E1E]/20 py-2 px-3 rounded-lg' : 'text-[#2b3c59] hover:bg-gray-100 rounded-lg' }} py-2 px-3 flex items-center justify-center " id="bookingDropdownBtn" aria-haspopup="true" aria-expanded="false" aria-label="Toggle booking menu">
                 Booking
-                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
             </button>
-            <ul id="bookingDropdownMenu" class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg rounded-md opacity-0 invisible transition-all duration-200 z-50" role="menu" aria-labelledby="bookingDropdownButton">
-                <li role="none">
-                    <a href="/sports/gokart" role="menuitem" class="block px-4 py-2 {{ request()->is('sports/gokart') ? 'text-[#8B1E1E]' : 'text-[#2b3c59]' }} hover:bg-gray-100 rounded-t-md">Go-Kart</a>
-                </li>
-                <li role="none">
-                    <a href="/sports/billiard" role="menuitem" class="block px-4 py-2 {{ request()->is('sports/billiard') ? 'text-[#8B1E1E]' : 'text-[#2b3c59]' }} hover:bg-gray-100">Billiard</a>
-                </li>
-                <li role="none">
-                    <a href="/sports/bowling" role="menuitem" class="block px-4 py-2 {{ request()->is('sports/bowling') ? 'text-[#8B1E1E]' : 'text-[#2b3c59]' }} hover:bg-gray-100 rounded-b-md">Bowling</a>
-                </li>
-            </ul>
+            <div id="booking-dropdown" class="absolute top-full left-0 mt-2 w-56 glass-effect rounded-xl shadow-xl border bg-gray-200/20 border-gray-200/20 invisible  transform scale-95 group-hover:scale-100 transition-all duration-200 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
+                <div class="p-2">
+                    <a href="/sports/gokart" class="flex items-center px-4 py-3 text-sm text-text-secondary hover:text-text-primary hover:bg-gray-50 rounded-lg transition-colors duration-200">
+                        <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                            <span class="text-red-600">🏎️</span>
+                        </div>
+                        <div>
+                            <div class="font-medium">Go-Kart</div>
+                            <div class="text-xs text-text-secondary">Racing experience</div>
+                        </div>
+                    </a>
+                    <a href="/sports/billiard" class="flex items-center px-4 py-3 text-sm text-text-secondary hover:text-text-primary hover:bg-gray-50 rounded-lg transition-colors duration-200">
+                        <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                            <span class="text-green-600">🎱</span>
+                        </div>
+                        <div>
+                            <div class="font-medium">Billiard</div>
+                            <div class="text-xs text-text-secondary">Classic pool games</div>
+                        </div>
+                    </a>
+                    <a href="/sports/bowling" class="flex items-center px-4 py-3 text-sm text-text-secondary hover:text-text-primary hover:bg-gray-50 rounded-lg transition-colors duration-200">
+                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                            <span class="text-blue-600">🎳</span>
+                        </div>
+                        <div>
+                            <div class="font-medium">Bowling</div>
+                            <div class="text-xs text-text-secondary">Strike & spare fun</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </li>
-        <li><a href="/promotion" class="{{ request()->is('promotion') ? 'text-[#8B1E1E]' : 'text-[#2b3c59]' }}">Promo</a></li>
-        <li><a href="/about" class="{{ request()->is('ai') ? 'text-[#8B1E1E]' : 'text-[#2b3c59]' }}">Tentang Kami</a></li>
+        <li><a href="/promotion" class="{{ request()->is('promotion') ? 'text-[#8B1E1E] bg-[#8B1E1E]/20 py-2 px-3 rounded-lg' : 'text-[#2b3c59] hover:bg-gray-100 rounded-lg' }} py-2 px-3">Best Deals</a></li>
+        <li><a href="/about" class="{{ request()->is('about') ? 'text-[#8B1E1E] bg-[#8B1E1E]/20 py-2 px-3 rounded-lg' : 'text-[#2b3c59] hover:bg-gray-100 rounded-lg' }} py-2 px-3">About Us</a></li>
     </ul>
 
-    <!-- Logo - centered on desktop, left-aligned after menu button on mobile -->
-    <div class="flex items-center justify-center absolute left-1/2 transform -translate-x-1/2 md:static md:left-auto md:transform-none md:mx-auto">
-        <img src="{{ asset('img/sportzone.png') }}" alt="Sportzone Logo" class="h-10 md:h-16" />
-    </div>
 
     <!-- Auth Buttons - hidden on mobile -->
-    <div class="hidden md:flex space-x-2 lg:space-x-4">
+    <div class="hidden md:flex space-x-2 lg:space-x-4 items-center justify-center">
         @auth
-            <div class="relative">
+        <div class="relative">
             <button id="userDropdownBtn" class="flex items-center space-x-2 bg-gray-200 text-[#2b3c59] px-3 py-1 lg:px-5 lg:py-2 rounded-lg shadow text-sm">
                 <span>{{ Auth::user()->name }}</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
             </button>
             <div id="userDropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg rounded-md hidden transition-all duration-200">
                 <a href="/profile" class="block px-4 py-2 text-[#2b3c59] hover:bg-gray-100">Profile</a>
                 <form method="GET" action="/auth/logout">
-                @csrf
-                <button type="submit" class="w-full text-left px-4 py-2 text-[#8B1E1E] hover:bg-gray-100">Logout</button>
+                    @csrf
+                    <button type="submit" class="w-full text-left px-4 py-2 text-[#8B1E1E] hover:bg-gray-100">Logout</button>
                 </form>
             </div>
-            </div>
-            <script>
-            const userDropdownBtn = document.getElementById('userDropdownBtn');
-            const userDropdownMenu = document.getElementById('userDropdownMenu');
-
-            if (userDropdownBtn && userDropdownMenu) {
-                userDropdownBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                userDropdownMenu.classList.toggle('hidden');
-                });
-
-                // Close dropdown when clicking outside
-                document.addEventListener('click', function(e) {
-                if (!userDropdownBtn.contains(e.target) && !userDropdownMenu.contains(e.target)) {
-                    userDropdownMenu.classList.add('hidden');
-                }
-                });
-            }
-            </script>
+        </div>
         @else
-            <a href="/auth/login" class="bg-gray-200 text-[#2b3c59] px-3 py-1 lg:px-5 lg:py-2 rounded-lg shadow text-sm">Login</a>
-            <a href="/auth/register" class="bg-[#8B1E1E] text-white px-3 py-1 lg:px-5 lg:py-2 rounded-lg shadow text-sm">Register</a>
+        <a href="/auth/login" class="text-[#2b3c59] lg:px-5 lg:py-2 text-sm  hover:bg-gray-100 py-2 px-3 rounded-lg">Sign In</a>
+        <a href="/auth/register" class="bg-gradient-to-tr from-[#9E1D1D] to-[#C82828] text-white px-3 py-1 lg:px-5 lg:py-2 rounded-lg shadow text-sm">Get Started</a>
         @endauth
     </div>
 
@@ -91,38 +107,76 @@
 <!-- Mobile menu (off-canvas) -->
 <div id="mobile-menu" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 hidden">
     <div class="bg-white h-full w-64 shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out">
-        <div class="p-5 border-b border-gray-200 flex justify-between items-center">
-            <h2 class="font-semibold text-lg text-[#2b3c59]">Menu</h2>
-            <button id="close-mobile-menu" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+        <div class="p-5 border-b border-gray-200 flex items-center">
+            <img src="{{ asset('img/sportzone_notext.png') }}" alt="Sportzone Logo" class="h-10 md:h-12 mr-2" />
+            <span class="text-xl font-bold text-text-primary block text-[#2b3c59]">SportZone</span>
+            <button id="close-mobile-menu" class="ml-auto text-gray-500 hover:text-gray-700 focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
         </div>
-        <nav class="p-4">
+        <nav class="p-4" x-data="{ open: false }">
             <ul class="space-y-4">
-                <li><a href="/" class="block py-2 text-[#8B1E1E] font-medium">Home</a></li>
-                <li class="py-2">
-                    <button id="mobile-booking-dropdown" class="flex items-center justify-between w-full text-[#2b3c59] font-medium">
+                <li>
+                    <a href="/" class="{{ request()->is('/') ? 'text-[#8B1E1E] bg-[#8B1E1E]/20 block rounded-lg' : 'text-[#2b3c59] hover:bg-gray-100 block rounded-lg' }} py-2 px-3 w-full block">Home</a>
+                </li>
+
+                <li>
+                    <button @click="open = !open" class="{{ request()->is('sports/*') ? 'text-[#8B1E1E] bg-[#8B1E1E]/20' : 'text-[#2b3c59] hover:bg-gray-100' }} py-2 px-3 w-full flex items-center justify-between rounded-lg transition-colors duration-200">
                         Booking
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        <svg class="w-4 h-4 ml-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <ul id="mobile-booking-submenu" class="pl-4 mt-2 hidden space-y-2">
-                        <li><a href="/sports/gokart" class="block py-1 text-[#2b3c59]">Go-Kart</a></li>
-                        <li><a href="/sports/billiard" class="block py-1 text-[#2b3c59]">Billiard</a></li>
-                        <li><a href="/sports/bowling" class="block py-1 text-[#2b3c59]">Bowling</a></li>
-                    </ul>
+
+                    <div x-show="open" x-transition class="mt-2 w-full max-w-[250px] border-gray-100 bg-white" @click.outside="open = false">
+                        <div class="p-2 space-y-2">
+                            <a href="/sports/gokart" class="flex items-center px-4 py-3 text-sm hover:bg-gray-100 rounded-lg transition-colors duration-150">
+                                <div class="w-9 h-9 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                                    <span class="text-red-600 text-lg">🏎️</span>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-[#2b3c59]">Go-Kart</div>
+                                    <div class="text-xs text-gray-500">Racing experience</div>
+                                </div>
+                            </a>
+
+                            <a href="/sports/billiard" class="flex items-center px-4 py-3 text-sm hover:bg-gray-100 rounded-lg transition-colors duration-150">
+                                <div class="w-9 h-9 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                    <span class="text-green-600 text-lg">🎱</span>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-[#2b3c59]">Billiard</div>
+                                    <div class="text-xs text-gray-500">Classic pool games</div>
+                                </div>
+                            </a>
+
+                            <a href="/sports/bowling" class="flex items-center px-4 py-3 text-sm hover:bg-gray-100 rounded-lg transition-colors duration-150">
+                                <div class="w-9 h-9 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                    <span class="text-blue-600 text-lg">🎳</span>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-[#2b3c59]">Bowling</div>
+                                    <div class="text-xs text-gray-500">Strike & spare fun</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </li>
-                <li><a href="/promotion" class="block py-2 text-[#2b3c59] font-medium">Promo</a></li>
-                <li><a href="/ai" class="block py-2 text-[#2b3c59] font-medium">Tanya AI</a></li>
+
+                <li>
+                    <a href="/promotion" class="{{ request()->is('promotion') ? 'text-[#8B1E1E] bg-[#8B1E1E]/20 py-2 px-3 rounded-lg' : 'text-[#2b3c59] hover:bg-gray-100 rounded-lg' }} w-full py-2 px-3 block">Best Deals</a>
+                </li>
+                <li>
+                    <a href="/about" class="{{ request()->is('about') ? 'text-[#8B1E1E] bg-[#8B1E1E]/20 py-2 px-3 rounded-lg' : 'text-[#2b3c59] hover:bg-gray-100 rounded-lg' }} w-full py-2 px-3 block">About Us</a>
+                </li>
 
                 <!-- Mobile auth buttons -->
                 <li class="pt-4 border-t border-gray-200 mt-4">
                     <div class="flex flex-col space-y-2">
-                        <a href="/auth/login" class="bg-gray-200 text-[#2b3c59] px-4 py-2 rounded-lg shadow text-center">Login</a>
-                        <a href="/auth/register" class="bg-[#8B1E1E] text-white px-4 py-2 rounded-lg shadow text-center">Register</a>
+                        <a href="/auth/login" class="bg-gray-200 text-[#2b3c59] px-4 py-2 rounded-lg shadow text-center">Sign In</a>
+                        <a href="/auth/register" class="bg-gradient-to-tr from-[#9E1D1D] to-[#C82828] text-white px-4 py-2 rounded-lg shadow text-center">Get Started</a>
                     </div>
                 </li>
             </ul>
@@ -139,25 +193,19 @@
 </div>
 
 <script>
-    // Dropdown menu functionality
-    const bookingDropdownBtn = document.getElementById('bookingDropdownBtn');
-    const bookingDropdownMenu = document.getElementById('bookingDropdownMenu');
+    const userDropdownBtn = document.getElementById('userDropdownBtn');
+    const userDropdownMenu = document.getElementById('userDropdownMenu');
 
-    // Toggle desktop booking dropdown
-    if (bookingDropdownBtn && bookingDropdownMenu) {
-        bookingDropdownBtn.addEventListener('click', function(e) {
+    if (userDropdownBtn && userDropdownMenu) {
+        userDropdownBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            bookingDropdownMenu.classList.toggle('opacity-0');
-            bookingDropdownMenu.classList.toggle('invisible');
-            bookingDropdownMenu.classList.toggle('opacity-100');
-            bookingDropdownMenu.classList.toggle('visible');
+            userDropdownMenu.classList.toggle('hidden');
         });
 
         // Close dropdown when clicking outside
         document.addEventListener('click', function(e) {
-            if (bookingDropdownBtn && bookingDropdownMenu && !bookingDropdownBtn.contains(e.target) && !bookingDropdownMenu.contains(e.target)) {
-                bookingDropdownMenu.classList.add('opacity-0', 'invisible');
-                bookingDropdownMenu.classList.remove('opacity-100', 'visible');
+            if (!userDropdownBtn.contains(e.target) && !userDropdownMenu.contains(e.target)) {
+                userDropdownMenu.classList.add('hidden');
             }
         });
     }

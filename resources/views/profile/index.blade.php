@@ -1,7 +1,7 @@
 @extends('components.layout')
 
 @section('content')
-<section class="pb-16 pt-32 px-4 bg-[#f8f6f1] min-h-screen font-sans">
+<section class="pb-16 pt-32 px-4 bg-gray-50 min-h-screen font-sans">
     <div class="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_2.8fr] gap-10 px-4 md:px-6 lg:px-0">
 
         <!-- Sidebar Info Akun -->

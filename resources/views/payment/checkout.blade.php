@@ -1,7 +1,7 @@
 @extends('components.layout')
 
 @section('content')
-<section class="relative bg-[#f8f6f1] pb-12 pt-32 px-4 overflow-hidden" x-data="{ isGift: false }">
+<section class="relative bg-gray-50 pb-12 pt-32 px-4 overflow-hidden" x-data="{ isGift: false }">
     <!-- Background image -->
     <img src="https://images.unsplash.com/photo-1544824158-f13eb5211474?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3" class="absolute inset-0 w-full h-full object-cover opacity-40 z-0" alt="background">
 
@@ -40,7 +40,7 @@
         <!-- Ringkasan -->
         <div class="space-y-4">
             <h3 class="text-xl font-semibold text-[#8B1E1E]">Ringkasan Pesanan</h3>
-            <div class="bg-[#f8f6f1] p-4 rounded-lg space-y-2">
+            <div class="bg-gray-50 p-4 rounded-lg space-y-2">
                 <div class="flex justify-between text-gray-700">
                     <span>Tiket Gokart (1 Jam)</span>
                     <span>Rp150.000</span>
