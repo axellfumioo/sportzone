@@ -16,6 +16,17 @@
         @include('components.layout.navbar')
         @yield('content')
         @include('components.layout.footer')
+        @include('components.bubblechat')
     </div>
     @livewireScripts
+    <script>
+        async function getChatToken() {
+            const res = await fetch('/api/chat-token', {
+                credentials: 'include',
+            });
+            const data = await res.json();
+            return data.token;
+        }
+
+    </script>
 </body>

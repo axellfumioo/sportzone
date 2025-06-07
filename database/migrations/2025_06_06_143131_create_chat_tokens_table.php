@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('aihistories', function (Blueprint $table) {
-            $table->id();
-            $table->string('input');
-            $table->string('return');
-            $table->string('session_id');
+        Schema::create('chat_tokens', function (Blueprint $table) {
+            $table->uuid('token')->primary();
+            $table->text('messages');
+            $table->text('return');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('aihistories');
+        Schema::dropIfExists('chat_tokens');
     }
 };

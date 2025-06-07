@@ -4,10 +4,10 @@ use App\Http\Controllers\AIController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\SportsController;
-use App\Http\Controllers\ApajaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Cache;
 
 Route::get('/', function () {
     return view('welcome');
