@@ -48,7 +48,7 @@ class SportsSeeder extends Seeder
                 'arena_closing_hours' => '21:00',
                 'arena_address'       => 'Pantai Indah Kapuk 2, Jakarta',
                 'arena_price'         => '120000',
-                'arena_price_range'   => 'Rp.120.000 - Rp.200.000',
+                'arena_price_range'   => 'IDR120.000 - IDR200.000',
                 'selection_type'      => 'difficulty',
                 'selections'          => json_encode(['easy', 'medium', 'hard']),
                 'arena_background'      => 'https://images.unsplash.com/photo-1560990817-aaa93354ea9c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',

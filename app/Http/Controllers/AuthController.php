@@ -71,8 +71,12 @@ class AuthController extends Controller
     public function profile()
     {
         $user = Auth::user();
-        $orders = OrderHistory::where('email', $user->email)->get();
-        $ticket = ModelsTicket::where('user_id', $user->id)->get();
-        return view('profile.index', compact('user', 'orders', 'ticket'));
+        if (!Auth::check()) {
+            return redirect('/');
+        } else {
+            $orders = OrderHistory::where('email', $user->email)->get();
+            $ticket = ModelsTicket::where('user_id', $user->id)->get();
+            return view('profile.index', compact('user', 'orders', 'ticket'));
+        }
     }
 }

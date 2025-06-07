@@ -73,7 +73,7 @@
                     </div>
                     <div class="flex items-start">
                         <span class="text-gray-500 w-24 flex-shrink-0">Total:</span>
-                        <span class="font-bold text-gray-800">Rp. {{ number_format($order->totalPrice, 2) }}</span>
+                        <span class="font-bold text-gray-800">IDR {{ number_format($order->totalPrice, 2) }}</span>
                     </div>
                 </div>
             </div>
@@ -107,15 +107,15 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Rp. {{ number_format($order->totalPrice) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">IDR {{ number_format($order->totalPrice) }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $order->totalItems }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">Rp. {{ number_format($order->totalPrice * $order->totalItems, 2) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">IDR {{ number_format($order->totalPrice) }}</td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr class="bg-gray-50">
                             <td colspan="3" class="px-6 py-4 whitespace-nowrap text-sm font-bold text-right text-gray-800">Total</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-800">Rp. {{ number_format($order->totalPrice * $order->totalItems, 2) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-800">IDR {{ number_format($order->totalPrice) }}</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -152,38 +152,50 @@
             </div>
             @elseif($order->payment_status === 'paid')
             <div class="flex items-center justify-center w-full flex-col space-y-6">
-    <h2 class="text-2xl font-semibold text-gray-900">Tunjukkan ke Kasir</h2>
+                <h2 class="text-2xl font-semibold text-gray-900">Tunjukkan ke Kasir</h2>
 
-    <!-- Ticket Status -->
-    <div class="mb-4">
-        <span class="px-4 py-2 rounded-full text-sm font-medium {{ $ticket->is_used === 'used' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800' }}">
-            {{ $ticket->is_used === 'used' ? 'Sudah Digunakan' : 'Aktif' }}
-        </span>
-    </div>
-
-    <!-- QR Code -->
-    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-        @if(isset($qrCode) && $qrCode)
-            <div class="flex justify-center items-center flex-col">
-                <img src="{{ $qrCode }}" class="w-64 h-64 mx-auto" alt="QR Code Pembayaran">
-                <p class="mt-2 font-semibold text-gray-500">{{ $order->orderId }}</p>
-            </div>
-        @else
-            <div class="w-64 h-64 bg-gray-100 rounded-xl flex items-center justify-center">
-                <div class="text-center">
-                    <div class="w-12 h-12 bg-gray-300 rounded-lg mx-auto mb-3 flex items-center justify-center">
-                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h4l2 3h6a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 0l2 6m0 0l2-6m-2 6h12"></path>
-                        </svg>
-                    </div>
-                    <p class="text-gray-500 text-sm">Memuat QR Code...</p>
+                <!-- Ticket Status -->
+                <div class="mb-4">
+                    <span class="px-4 py-2 rounded-full text-sm font-medium {{ $ticket->is_used === 'used' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800' }}">
+                        {{ $ticket->is_used === 'used' ? 'Sudah Digunakan' : 'Aktif' }}
+                    </span>
                 </div>
-            </div>
-        @endif
-    </div>
 
-    <p class="text-gray-600 text-center text-sm max-w-xs">Tunjukkan QR code ini kepada kasir untuk menyelesaikan pembayaran</p>
-</div>
+                <!-- QR Code -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    @if(isset($qrCode) && $qrCode)
+                    <div class="flex justify-center items-center flex-col">
+                        <div>
+                            @if($ticket->is_used === 'unused')
+                            <img src="{{ $qrCode }}" class="w-64 h-64 mx-auto" alt="QR Code Pembayaran">
+                            @else
+                                <div class="relative">
+                                    <img src="{{ $qrCode }}" class="w-64 h-64 mx-auto opacity-20" alt="QR Code Pembayaran">
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                        <div class="text-red-600 text-6xl font-bold"><i class="fa-solid fa-x"></i></div>
+                                        <p class="text-red-600 font-bold mt-2 bg-white p-0.5">Tiket sudah digunakan</p>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                        <p class="mt-2 font-semibold text-gray-500">{{ $order->orderId }}</p>
+                    </div>
+                    @else
+                    <div class="w-64 h-64 bg-gray-100 rounded-xl flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-gray-300 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                                <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h4l2 3h6a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 0l2 6m0 0l2-6m-2 6h12"></path>
+                                </svg>
+                            </div>
+                            <p class="text-gray-500 text-sm">Memuat QR Code...</p>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+
+                <p class="text-gray-600 text-center text-sm max-w-xs">Tunjukkan QR code ini kepada kasir untuk menyelesaikan pembayaran</p>
+            </div>
             @else
             <div>
                 <p class="text-sm text-gray-500">Payment failed. Please try again or contact support.</p>
@@ -225,7 +237,7 @@
     }
 
 
-    @if($order -> payment_status === 'unpaid')
+    @if($order->payment_status === 'unpaid')
     document.getElementById('payBtn').addEventListener('click', function() {
         window.snap.pay('{{ $order->midtrans_snap_token }}', {
             onSuccess: function(result) {
@@ -245,7 +257,7 @@
 
     @endif
 
-    @if($order -> payment_status === 'failed')
+    @if($order->payment_status === 'failed')
     document.getElementById('payBtn').addEventListener('click', function() {
         window.snap.pay('{{ $order->midtrans_snap_token }}', {
             onSuccess: function(result) {

@@ -50,35 +50,48 @@
         <!-- Main Content -->
         <main class="space-y-10">
             <!-- Kartu Ringkasan Tiket -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div
-                    class="bg-white p-7 rounded-3xl shadow-lg hover:shadow-xl transition-all group">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-base text-gray-500">Tiket Gokart</p>
-                            <h3 class="text-4xl font-bold text-[#8B1E1E]">{{ $ticket->where('sports_id', '2')->where('payment_status', 'paid')->count() }}</h3>
+            <div>
+                <div class="flex items-center gap-2 mb-6">
+                    <h2 class="text-2xl font-semibold text-[#8B1E1E]">Tiket kamu</h2>
+                    <div class="relative inline-block group">
+                        <i class="fas fa-circle-info text-gray-400 hover:text-[#8B1E1E] transition-colors cursor-help"></i>
+                        <div class="absolute z-10 left-full ml-2 top-1/2 -translate-y-1/2 hidden group-hover:block">
+                            <div class="bg-gray-800 text-white text-sm py-2 px-4 rounded-lg shadow-lg max-w-xs w-max">
+                                <p class="text-center">Menampilkan jumlah tiket yang belum digunakan untuk setiap jenis olahraga</p>
+                                <div class="absolute top-1/2 right-full -translate-y-1/2">
+                                    <div class="border-8 border-transparent border-r-gray-800"></div>
+                                </div>
+                            </div>
                         </div>
-                        <span class="text-5xl transition-transform group-hover:scale-110">🏎️</span>
                     </div>
                 </div>
-                <div
-                    class="bg-white p-7 rounded-3xl shadow-lg hover:shadow-xl transition-all group">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-base text-gray-500">Tiket Billiard</p>
-                            <h3 class="text-4xl font-bold text-[#8B1E1E]">{{ $ticket->where('sports_id', '1')->where('payment_status', 'paid')->count() }}</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-7 rounded-3xl shadow-lg hover:shadow-xl transition-all group">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-base text-gray-500">Tiket Gokart</p>
+                                <h3 class="text-4xl font-bold text-[#8B1E1E]">{{ $ticket->where('sports_id', '2')->where('is_used', 'unused')->count() }}</h3>
+                            </div>
+                            <span class="text-5xl transition-transform group-hover:scale-110">🏎️</span>
                         </div>
-                        <span class="text-5xl transition-transform group-hover:scale-110">🎱</span>
                     </div>
-                </div>
-                <div
-                    class="bg-white p-7 rounded-3xl shadow-lg hover:shadow-xl transition-all group">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-base text-gray-500">Tiket Bowling</p>
-                            <h3 class="text-4xl font-bold text-[#8B1E1E]">{{ $ticket->where('sports_id', '3')->where('payment_status', 'paid')->count() }}</h3>
+                    <div class="bg-white p-7 rounded-3xl shadow-lg hover:shadow-xl transition-all group">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-base text-gray-500">Tiket Billiard</p>
+                                <h3 class="text-4xl font-bold text-[#8B1E1E]">{{ $ticket->where('sports_id', '1')->where('is_used', 'unused')->count() }}</h3>
+                            </div>
+                            <span class="text-5xl transition-transform group-hover:scale-110">🎱</span>
                         </div>
-                        <span class="text-5xl transition-transform group-hover:scale-110">🎳</span>
+                    </div>
+                    <div class="bg-white p-7 rounded-3xl shadow-lg hover:shadow-xl transition-all group">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-base text-gray-500">Tiket Bowling</p>
+                                <h3 class="text-4xl font-bold text-[#8B1E1E]">{{ $ticket->where('sports_id', '3')->where('is_used', 'unused')->count() }}</h3>
+                            </div>
+                            <span class="text-5xl transition-transform group-hover:scale-110">🎳</span>
+                        </div>
                     </div>
                 </div>
             </div>

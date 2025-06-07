@@ -341,7 +341,7 @@
                             <div class="flex justify-between items-center p-4 border border-gray-200 rounded-lg">
                                 <div>
                                     <p class="font-semibold">Per Pax</p>
-                                    <p class="text-sm text-gray-500">IDR <span id="harga-satuan">250000</span>/pax</p>
+                                    <p class="text-sm text-gray-500">IDR <span id="harga-satuan">{{number_format($arenas->arena_price, 0, ',', '.')}}</span>/pax</p>
                                 </div>
                                 <div class="flex items-center gap-4">
                                     <button type="button" id="kurangi" class="w-8 h-8 flex justify-center items-center rounded-full border border-[#8B1E1E] text-[#8B1E1E]
@@ -363,11 +363,11 @@
                             <div class="space-y-3 mb-6 text-sm mt-4">
                                 <div class="flex justify-between">
                                     <span>Harga Tiket (x)</span>
-                                    <span>IDR <span id="harga-tiket">250000</span></span>
+                                    <span>IDR <span id="harga-tiket">{{number_format($arenas->arena_price, 0, ',', '.')}}</span></span>
                                 </div>
                                 <div class="border-t border-gray-200 pt-3 mt-3 flex justify-between font-semibold">
                                     <span>Total Pembayaran</span>
-                                    <span class="text-[#8B1E1E] font-bold">IDR <span id="total-price">288600</span></span>
+                                    <span class="text-[#8B1E1E] font-bold">IDR <span id="total-price">{{number_format($arenas->arena_price, 0, ',', '.')}}</span></span>
                                 </div>
                             </div>
 
@@ -475,8 +475,8 @@
                         const total = hargaTiket;
 
                         jumlahTiketEl.textContent = jumlah;
-                        hargaTiketEl.textContent = hargaTiket;
-                        totalEl.textContent = total;
+                        hargaTiketEl.textContent = new Intl.NumberFormat('id-ID').format(hargaTiket);
+                        totalEl.textContent = new Intl.NumberFormat('id-ID').format(total);
 
                         inputJumlah.value = jumlah;
                     }

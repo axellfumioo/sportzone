@@ -120,98 +120,85 @@
             <!-- Grid Arena -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @forelse($arenas as $arena)
-                <div class="group bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 border border-gray-200">
-                    <!-- Gambar + Overlay -->
-                    <div class="relative overflow-hidden">
-                        <img src="/storage/{{ $arena->arena_background }}" loading="lazy" class="w-full h-56 sm:h-64 object-cover group-hover:scale-110 transition-transform duration-700" alt="{{ $arena->arena_name }}" />
+                <div class="group rounded-3xl overflow-hidden shadow-xl transition-all duration-500 transform hover:-translate-y-1 bg-white border border-gray-200">
+                    <!-- Gambar Arena -->
+                    <div class="relative">
+                        <img src="/storage/{{ $arena->arena_background }}" alt="{{ $arena->arena_name }}" loading="lazy" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-105" />
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-                        <div class="absolute top-4 right-4 z-10 flex flex-col gap-1">
-                            <span class="bg-white/95 backdrop-blur-sm text-[#8B1E1E] text-xs font-bold px-3 py-1.5 rounded-full shadow-lg border border-white/20">
+                        <div class="absolute top-4 right-4 z-10">
+                            <span class="bg-white text-[#8B1E1E] text-xs font-semibold px-3 py-1 rounded-full shadow-md">
                                 {{ $arena->arena_track }}
                             </span>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 p-4 z-10">
-                            <div class="flex flex-wrap gap-2 text-white text-xs">
-                                @if($arena->sports_list_id == 2)
-                                <div class="flex items-center bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-[10px] sm:text-xs">
-                                    <i class="fas fa-user mr-1"></i>
-                                    <span>14-17 Tahun</span>
-                                </div>
-                                <div class="flex items-center bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-[10px] sm:text-xs">
-                                    <i class="fas fa-tachometer-alt mr-1"></i>
-                                    <span>>60km/h</span>
-                                </div>
-                                @endif
-                                <div class="flex items-center bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-[10px] sm:text-xs">
-                                    <i class="fas fa-clock mr-1"></i>
-                                    <span class="font-medium text-[10px] sm:text-xs">
-                                        {{ $arena->arena_opening_hours }} - {{ $arena->arena_closing_hours }}
-                                    </span>
-                                </div>
+                        <div class="absolute bottom-0 p-4 z-10 text-white text-xs flex flex-wrap gap-2">
+                            @if($arena->sports_list_id == 2)
+                            <div class="bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm flex items-center">
+                                <i class="fas fa-user mr-1"></i> 14-17 Tahun
+                            </div>
+                            <div class="bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm flex items-center">
+                                <i class="fas fa-tachometer-alt mr-1"></i> >60km/h
+                            </div>
+                            @endif
+                            <div class="bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm flex items-center">
+                                <i class="fas fa-clock mr-1"></i> {{ $arena->arena_opening_hours }} - {{ $arena->arena_closing_hours }}
                             </div>
                         </div>
                     </div>
 
-                    <!-- Konten Card -->
-                    <div class="p-5 sm:p-6 lg:p-8 space-y-3">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-2">
-                                <div class="flex items-center text-yellow-400 text-sm">
-                                    @for($i = 1; $i <= 5; $i++) @if($arena->arena_rating >= $i)
-                                        <i class="fas fa-star"></i>
-                                        @elseif($arena->arena_rating > $i - 1)
-                                        <i class="fas fa-star-half-alt"></i>
-                                        @else
-                                        <i class="far fa-star"></i>
-                                        @endif
+                    <!-- Konten -->
+                    <div class="p-6 space-y-4">
+                        <!-- Rating & Favorite -->
+                        <div class="space-y-4">
+                            <!-- Arena Info - Moved to top -->
+                            <div class="space-y-2">
+                                <h2 class="text-xl font-bold text-left text-[#8B1E1E] transition-colors duration-200">
+                                    {{ $arena->arena_name }}
+                                </h2>
+                                <p class="flex items-start text-sm text-gray-600">
+                                    <i class="fas fa-map-marker-alt text-[#8B1E1E] mt-1 mr-2"></i>
+                                    <span class="line-clamp-2">{{ $arena->arena_address }}</span>
+                                </p>
+                            </div>
+
+                            <!-- Rating & Reviews -->
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center gap-2">
+                                    <div class="flex text-yellow-400">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            @if($arena->arena_rating >= $i)
+                                                <i class="fas fa-star"></i>
+                                            @elseif($arena->arena_rating > $i - 1)
+                                                <i class="fas fa-star-half-alt"></i>
+                                            @else
+                                                <i class="far fa-star"></i>
+                                            @endif
                                         @endfor
+                                    </div>
+                                    <span class="text-sm font-medium text-gray-600">
+                                        {{ number_format($arena->arena_rating, 1) }} ({{ $arena->arena_reviews }})
+                                    </span>
                                 </div>
-                                <div class="flex items-center text-xs sm:text-sm">
-                                    <span class="font-bold text-gray-800">{{ $arena->arena_rating }}</span>
-                                    <span class="text-gray-500 ml-1">({{ $arena->arena_reviews }} ulasan)</span>
-                                </div>
-                            </div>
-                            <button class="p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 group">
-                                <i class="far fa-heart text-gray-400 group-hover:text-red-600 transition-colors duration-200 text-lg"></i>
-                            </button>
-                        </div>
-
-                        <div class="space-y-2">
-                            <h3 class="text-lg sm:text-xl font-bold text-[#8B1E1E] group-hover:text-[#a12c2c] transition-colors duration-200">
-                                {{ $arena->arena_name }}
-                            </h3>
-                            <div class="flex items-start text-gray-600 text-xs sm:text-sm">
-                                <i class="fas fa-map-marker-alt mt-0.5 mr-1 text-gray-400 text-sm"></i>
-                                <span class="line-clamp-2">{{ $arena->arena_address }}</span>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <i class="fas fa-tag text-[#8B1E1E] mr-1 text-base sm:text-lg"></i>
-                                <span class="text-base sm:text-lg font-bold text-[#8B1E1E]">
-                                    {{ $arena->arena_price_range ?? 'Rp85.000 - Rp150.000' }}
-                                </span>
-                            </div>
-                            <span class="text-[10px] sm:text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">per jam</span>
-                        </div>
-
-                        <div class="pt-3 space-y-2 sm:space-y-3">
-                            <a href="/book/{{ $arena->arena_slugs }}" class="w-full flex items-center justify-center bg-gradient-to-r from-[#8B1E1E] to-[#a12c2c] text-white py-2.5 sm:py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]">
-                                <i class="fa-solid fa-cart-shopping text-sm sm:text-base mr-2 group-hover:animate-bounce"></i>
-                                <span class="text-xs sm:text-sm">Booking Sekarang</span>
-                            </a>
-                            <div class="flex gap-2 sm:gap-3">
-                                <button class="flex-1 flex items-center justify-center bg-gray-100 text-gray-700 py-2 rounded-xl font-medium hover:bg-gray-200 transition-colors duration-200 text-xs sm:text-sm">
-                                    <i class="fas fa-info-circle mr-1"></i>
-                                    Detail
-                                </button>
-                                <button class="flex-1 flex items-center justify-center bg-blue-50 text-blue-600 py-2 rounded-xl font-medium hover:bg-blue-100 transition-colors duration-200 text-xs sm:text-sm">
-                                    <i class="fas fa-phone mr-1"></i>
-                                    Kontak
+                                <button class="w-10 h-10 rounded-full hover:bg-red-50 transition-colors duration-200 flex items-center justify-center">
+                                    <i class="far fa-heart text-gray-400 hover:text-red-500 transition-colors duration-200"></i>
                                 </button>
                             </div>
+
+                            <!-- Pricing -->
+                            <div class="bg-gray-50 rounded-xl p-4 flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <i class="fas fa-tag text-[#8B1E1E] mr-2"></i>
+                                    <span class="font-semibold text-gray-800">
+                                        {{ $arena->arena_price_range ?? 'Rp85.000 - Rp150.000' }}
+                                    </span>
+                                </div>
+                                <span class="text-xs text-gray-500 bg-white px-2 py-1 rounded-full">per jam</span>
+                            </div>
                         </div>
+
+                        <!-- Tombol Booking -->
+                        <a href="/book/{{ $arena->arena_slugs }}" class="block w-full bg-[#8B1E1E] text-white text-center py-3 rounded-xl font-semibold hover:bg-[#a12c2c] transition-all">
+                            <i class="fas fa-cart-shopping mr-2"></i> Booking Sekarang
+                        </a>
                     </div>
                 </div>
                 @empty

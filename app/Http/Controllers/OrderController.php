@@ -96,7 +96,7 @@ class OrderController extends Controller
         try {
             DB::table('order_histories')->insert([
                 'orderId'             => $orderId,
-                'name'               => $userId,
+                'name'               => $name,
                 'email'              => $email,
                 'phone'              => $phone,
                 'address'            => $address,
@@ -143,6 +143,10 @@ class OrderController extends Controller
     }
     public function viewOrder($id)
     {
+        if (!Auth::check()) {
+            return redirect('/');
+        }
+
         $order = OrderHistory::where('orderId', $id)->first();
         if (!$order) {
             return redirect('/')->with('error', 'Order tidak ditemukan.');
