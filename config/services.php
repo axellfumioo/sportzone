@@ -39,4 +39,9 @@ return [
         'token' => env('FONNTE_TOKEN'),
     ],
 
+    'ratelimit' => [
+        'limit' => env('RATE_LIMIT'),
+        'expired' => env('RATE_LIMIT_TIME'),
+    ],
+
 ];

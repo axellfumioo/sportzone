@@ -40,7 +40,7 @@ class AIController extends Controller
         if ($this->rateLimit($ip)) {
             $aireturn = $this->AIRequest($token, $validated['message']);
         } else {
-            return response()->json(['error' => 'Rate Limited. Please try again in 1-2 minutes.'], 403);
+            return response()->json(['error' => 'Rate Limited. Please try again in 3-5 minutes.'], 403);
         }
 
         if (!$chatToken) {
@@ -280,14 +280,17 @@ PROMPT;
 
     public function rateLimit($ip)
     {
+        $limit = config('services.ratelimit.limit');
+        $expired = (int) config('services.ratelimit.expired');
+
         $airatelimit = AIRateLimit::where('ip', $ip)->first();
         if ($airatelimit) {
-            if ($airatelimit->total_request >= 5) {
+            if ($airatelimit->total_request >= $limit) {
                 if ($airatelimit->expired > Carbon::now('Asia/Jakarta')) {
                     return false;
                 } else {
                     $airatelimit->total_request = 1;
-                    $airatelimit->expired = Carbon::now('Asia/Jakarta')->addMinutes(5);
+                    $airatelimit->expired = Carbon::now('Asia/Jakarta')->addMinutes($expired);
                     $airatelimit->save();
                     return true;
                 }
