@@ -154,7 +154,7 @@ class OrderController extends Controller
         $ticket = ticket::where('orderId', $order->orderId)->first();
 
         $generator = new \Picqer\Barcode\BarcodeGeneratorHTML();
-        $qrCode = 'https://api.qrserver.com/v1/create-qr-code/?size=512x512&data=' . url('/') . $order->orderId;
+        $qrCode = 'https://api.qrserver.com/v1/create-qr-code/?size=512x512&data=' . url('/') . "/" . $order->orderId;
 
         $order->items = json_decode($order->items);
         return view('payment.details', compact('order', 'qrCode', 'ticket'));
@@ -163,7 +163,6 @@ class OrderController extends Controller
     public function callback(Request $request)
     {
         $json = json_decode($request->getContent(), true);
-        Log::info('Callback received: ', $json);
 
         $orderId = $json['order_id'];
         $statusCode = $json['status_code'];
@@ -261,16 +260,26 @@ class OrderController extends Controller
 
         $formattedTotal = 'Rp ' . number_format($cartTotal, 0, ',', '.');
 
-        $message = "Hai *{$name}*, terima kasih telah melakukan pemesanan di _SportZone_. Berikut adalah detail pesanan Anda:\n\n" .
-            "Order ID: *{$orderId}*\n" .
-            "Nama: *{$name}*\n" .
-            "Email: *{$email}*\n" .
-            "Telepon: +*{$phone}*\n" .
-            "Jumlah Tiket: *{$jumlahtiket}*\n" .
-            "Item: *{$item}*\n" .
-            "Total Pembayaran: *{$formattedTotal}*\n" .
-            "Metode Pembayaran: *" . strtoupper($ewallet) . "*\n\n" .
-            "Silakan lakukan pembayaran sesuai dengan metode yang Anda pilih.\nLink Pembayaran: *{$url}*";
+        $message = "🎮 *SPORTZONE ORDER CONFIRMATION* 🎮\n\n" .
+            "Hello *{$name}*! Thank you for choosing SportZone.\n\n" .
+            "📋 *ORDER DETAILS*\n" .
+            "━━━━━━━━━━━━━━━━\n" .
+            "🔹 Order ID: *{$orderId}*\n" .
+            "🔹 Name: *{$name}*\n" .
+            "🔹 Email: *{$email}*\n" .
+            "🔹 Phone: +*{$phone}*\n\n" .
+            "🎫 *TICKET INFORMATION*\n" .
+            "━━━━━━━━━━━━━━━━\n" .
+            "🔸 Quantity: *{$jumlahtiket}x*\n" .
+            "🔸 Item: *{$item}*\n\n" .
+            "💳 *PAYMENT DETAILS*\n" .
+            "━━━━━━━━━━━━━━━━\n" .
+            "💰 Amount: *{$formattedTotal}*\n" .
+            "🏧 Method: *" . strtoupper($ewallet) . "*\n\n" .
+            "🔵 *Payment Link*\n" .
+            "{$url}\n\n" .
+            "Please complete your payment using the link above.\n" .
+            "Need help? Chat with us through our website! 😊";
 
         try {
             $token = config('services.fonnte.token');
@@ -286,33 +295,19 @@ class OrderController extends Controller
             $httpcode = $response->status();
             $error = !$response->successful();
 
-            Log::info('Fonnte API call executed', [
-                'phone' => $phone,
-                'response' => $response,
-                'http_code' => $httpcode
-            ]);
-
             if ($error) {
-                Log::error('Fonnte cURL Error: ' . $error);
                 return response()->json(['error' => 'Failed to send notification: ' . $error], 500);
             }
 
             $responseData = json_decode($response, true);
 
             if (isset($responseData['status']) && $responseData['status'] === true) {
-                Log::error('Fonnte API Error: ' . $responseData['reason'], ['response' => $responseData]);
                 return response()->json(['message' => 'WhatsApp notification sent', 'details' => $responseData]);
             } else {
                 $errorMsg = isset($responseData['reason']) ? $responseData['reason'] : 'Unknown error';
-                Log::error('Fonnte API Error: ' . $errorMsg, ['response' => $responseData]);
                 return response()->json(['error' => 'Failed to send notification: ' . $errorMsg], 500);
             }
         } catch (\Exception $e) {
-            Log::error('Fonnte exception: ' . $e->getMessage(), [
-                'trace' => $e->getTraceAsString(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine()
-            ]);
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -331,9 +326,13 @@ class OrderController extends Controller
         }
 
         $formattedTotal = 'Rp ' . number_format($totalPrice, 0, ',', '.');
-        $message = "Hallo *{$name}*, terima kasih telah melakukan pembayaran untuk pesanan Anda dengan ID *{$orderId}*.\n\n" .
-            "Total Pembayaran: *{$formattedTotal}*\n\n" .
-            "Jika ada pertanyaan, silakan hubungi kami.";
+        $message = "🎉 Selamat *{$name}*! 🎉\n\n" .
+            "Pembayaran Anda untuk Order ID: *{$orderId}* telah berhasil kami terima.\n\n" .
+            "💰 Total Pembayaran: *{$formattedTotal}*\n\n" .
+            "🎫 E-ticket Anda sudah dapat digunakan.\n" .
+            "Silakan tunjukkan e-ticket saat memasuki arena.\n\n" .
+            "📞 Butuh bantuan? Chat Jamal pada website kami :)\n" .
+            "Terima kasih telah memilih SportZone! 🙏";
         try {
             $token = config('services.fonnte.token');
 
@@ -349,34 +348,34 @@ class OrderController extends Controller
             $responseBody = $response->body();
             $error = !$response->successful();
 
-
-            Log::info('Fonnte API call executed', [
-                'phone' => $phone,
-                'response' => $response,
-                'http_code' => $httpcode
-            ]);
-
             if ($error) {
-                Log::error('Fonnte cURL Error: ' . $error);
                 return response()->json(['error' => 'Failed to send notification: ' . $error], 500);
             }
 
             $responseData = json_decode($response, true);
 
             if (isset($responseData['status']) && $responseData['status'] === true) {
-                Log::error('Fonnte API Error: ' . $responseData['reason'], ['response' => $responseData]);
                 return response()->json(['message' => 'WhatsApp notification sent', 'details' => $responseData]);
             } else {
                 $errorMsg = isset($responseData['reason']) ? $responseData['reason'] : 'Unknown error';
-                Log::error('Fonnte API Error: ' . $errorMsg, ['response' => $responseData]);
                 return response()->json(['error' => 'Failed to send notification: ' . $errorMsg], 500);
             }
         } catch (\Exception $e) {
-            Log::error('Fonnte exception: ' . $e->getMessage(), [
-                'trace' => $e->getTraceAsString(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine()
-            ]);
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    public function demoExample($orderId) {
+        try {
+            $order = OrderHistory::where('orderId', $orderId)->first();
+
+            if (!$order) {
+                return response()->json(['error' => 'Order not found'], 404);
+            }
+
+            $order->update(['payment_status' => 'paid']);
+
+            return response()->json(['message' => 'Payment status updated to paid'], 200);
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }

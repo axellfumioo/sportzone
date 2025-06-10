@@ -140,6 +140,18 @@
                 @php
                 $isExpired = now()->diffInHours($order->created_at) > 23;
                 @endphp
+                <button id="demopayBtn" {{ $isExpired ? 'disabled' : '' }} class="{{ $isExpired
+        ? 'bg-gray-400 cursor-not-allowed text-white font-medium py-2 px-6 rounded-lg flex items-center transition-colors duration-150 shadow-md'
+        : 'bg-gray-800 cursor-pointer text-white font-medium py-2 px-6 rounded-lg flex items-center transition-colors duration-150 shadow-md hover:shadow-lg'
+    }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                    </svg>
+                    {{ $isExpired ? 'Order Expired' : 'Demo (ubah menjadi paid)' }}
+                </button>
+                @php
+                $isExpired = now()->diffInHours($order->created_at) > 23;
+                @endphp
                 <button id="payBtn" {{ $isExpired ? 'disabled' : '' }} class="{{ $isExpired
         ? 'bg-gray-400 cursor-not-allowed text-white font-medium py-2 px-6 rounded-lg flex items-center transition-colors duration-150 shadow-md'
         : 'bg-red-800 cursor-pointer text-white font-medium py-2 px-6 rounded-lg flex items-center transition-colors duration-150 shadow-md hover:shadow-lg'
@@ -154,61 +166,78 @@
             <div class="flex items-center justify-center w-full flex-col space-y-6">
                 <h2 class="text-2xl font-semibold text-gray-900">Tunjukkan ke Kasir</h2>
 
+                @php
+                $isExpired = now() > \Carbon\Carbon::parse($ticket->validuntil)->setTimeFromTimeString($ticket->time);
+                @endphp
                 <!-- Ticket Status -->
                 <div class="mb-4">
+                    @if($isExpired)
+                    <span class="px-4 py-2 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                        Kadaluarsa
+                    </span>
+                    @else
                     <span class="px-4 py-2 rounded-full text-sm font-medium {{ $ticket->is_used === 'used' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800' }}">
                         {{ $ticket->is_used === 'used' ? 'Sudah Digunakan' : 'Aktif' }}
                     </span>
+                    @endif
                 </div>
 
                 <!-- QR Code -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+
                     @if(isset($qrCode) && $qrCode)
                     <div class="flex justify-center items-center flex-col">
                         <div>
-                            @if($ticket->is_used === 'unused')
+                            @if($ticket->is_used === 'unused' && !$isExpired)
                             <img src="{{ $qrCode }}" class="w-64 h-64 mx-auto" alt="QR Code Pembayaran">
-                            @else
-                                <div class="relative">
-                                    <img src="{{ $qrCode }}" class="w-64 h-64 mx-auto opacity-20" alt="QR Code Pembayaran">
-                                    <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                        <div class="text-red-600 text-6xl font-bold"><i class="fa-solid fa-x"></i></div>
-                                        <p class="text-red-600 font-bold mt-2 bg-white p-0.5">Tiket sudah digunakan</p>
-                                    </div>
+                            @elseif($ticket->is_used !== 'unused')
+                            <div class="relative">
+                                <img src="{{ $qrCode }}" class="w-64 h-64 mx-auto opacity-20" alt="QR Code Pembayaran">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <div class="text-red-600 text-6xl font-bold"><i class="fa-solid fa-x"></i></div>
+                                    <p class="text-red-600 font-bold mt-2 bg-white p-0.5">Tiket sudah digunakan</p>
                                 </div>
+                            </div>
+                            @elseif($isExpired)
+                            <div class="relative">
+                                <img src="{{ $qrCode }}" class="w-64 h-64 mx-auto opacity-20" alt="QR Code Pembayaran">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <div class="text-red-600 text-6xl font-bold"><i class="fa-solid fa-x"></i></div>
+                                    <p class="text-red-600 font-bold mt-2 bg-white p-0.5">Tiket sudah kadaluarsa</p>
+                                </div>
+                            </div>
                             @endif
                         </div>
                         <p class="mt-2 font-semibold text-gray-500">{{ $order->orderId }}</p>
+                        <p class="text-sm text-gray-500">Valid until: {{ date('Y-m-d', strtotime($ticket->validuntil)) }} {{ date('h:i A', strtotime($ticket->time)) }}</p>
                     </div>
-                    @else
-                    <div class="w-64 h-64 bg-gray-100 rounded-xl flex items-center justify-center">
-                        <div class="text-center">
-                            <div class="w-12 h-12 bg-gray-300 rounded-lg mx-auto mb-3 flex items-center justify-center">
-                                <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h4l2 3h6a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 0l2 6m0 0l2-6m-2 6h12"></path>
-                                </svg>
-                            </div>
-                            <p class="text-gray-500 text-sm">Memuat QR Code...</p>
+                    @elseif($isExpired)
+                    <div class="relative">
+                        <div class="w-64 h-64 mx-auto bg-gray-100 opacity-20 flex items-center justify-center">
+                            <i class="fa-solid fa-qrcode text-6xl text-gray-400"></i>
+                        </div>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <div class="text-red-600 text-6xl font-bold"><i class="fa-solid fa-x"></i></div>
+                            <p class="text-red-600 font-bold mt-2 bg-white p-0.5">Tiket sudah kadaluarsa</p>
                         </div>
                     </div>
                     @endif
                 </div>
-
                 <p class="text-gray-600 text-center text-sm max-w-xs">Tunjukkan QR code ini kepada kasir untuk menyelesaikan pembayaran</p>
+                @else
+                <div>
+                    <p class="text-sm text-gray-500">Payment failed. Please try again or contact support.</p>
+                </div>
+                <div class="flex space-x-4">
+                    <button id="retryBtn" class="bg-red-800 text-white font-medium py-2 px-6 rounded-lg flex items-center transition-colors duration-150 shadow-md hover:shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Try Again
+                    </button>
+                </div>
+                @endif
             </div>
-            @else
-            <div>
-                <p class="text-sm text-gray-500">Payment failed. Please try again or contact support.</p>
-            </div>
-            <div class="flex space-x-4">
-                <button id="retryBtn" class="bg-red-800 text-white font-medium py-2 px-6 rounded-lg flex items-center transition-colors duration-150 shadow-md hover:shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                    Try Again
-                </button>
-            </div>
-            @endif
         </div>
     </div>
 </div>
@@ -275,6 +304,32 @@
         });
     });
     @endif
+
+    let demopayBtn = document.getElementById('demopayBtn');
+    if (demopayBtn) {
+        demopayBtn.addEventListener('click', function() {
+            const orderId = window.location.pathname.split('/').pop();
+            fetch(`/paymentdemo/${orderId}`, {
+                    method: 'GET'
+                })
+                .then(response => {
+                    if (response.status === 200) {
+                        window.location.reload();
+                        return response.json();
+                    }
+                    throw new Error('Failed to process demo payment');
+                })
+                .then(data => {
+                    if (!data.success) {
+                        throw new Error('Failed to process demo payment');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(error.message);
+                });
+        });
+    }
 
 </script>
 @endsection

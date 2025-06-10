@@ -2,40 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\chatToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Cache;
 use Jenssegers\Agent\Agent;
 
 class ChatTokenController extends Controller
 {
-    private const CACHE_PREFIX = 'chat_token_';
-    private const CACHE_DURATION = 2; // hours
-
     public function getToken(Request $request)
     {
-        // Check for robots early
-        if ((new \Jenssegers\Agent\Agent())->isRobot()) {
-            return response()->json(['error' => 'Access denied'], 403);
+        $start = microtime(true);
+
+        $agent = new Agent();
+
+        if ($agent->isRobot()) {
+            return $this->jsonResponse('Access denied', 403, $start, []);
         }
 
-        $token = $request->cookie('chat_token');
+        $token = (string) Str::uuid();
 
-        // If no token, generate and store a new one
-        if (!$token) {
-            $token = Str::uuid();
-            $cacheKey = self::CACHE_PREFIX . $token;
-            Cache::put($cacheKey, true, now()->addHours(self::CACHE_DURATION));
+        chatToken::create([
+            'token' => $token,
+            'messages' => 'No history',
+            'return' => 'No history'
+        ]);
 
-            return response()
-                ->json(['token' => $token])
-                ->cookie('chat_token', $token, 0); // session cookie
+        return $this->jsonResponse(null, 200, $start, ['token' => $token]);
+    }
+
+    private function jsonResponse(?string $error, int $status, float $start, array $data = []): \Illuminate\Http\JsonResponse
+    {
+        $executionTime = (microtime(true) - $start) * 1000;
+        $response = [
+            'execution_time_ms' => round($executionTime, 2),
+        ];
+
+        if ($error) {
+            $response['error'] = $error;
         }
 
-        // Extend cache if token exists and is not cached
-        $cacheKey = self::CACHE_PREFIX . $token;
-        Cache::add($cacheKey, true, now()->addHours(self::CACHE_DURATION));
-
-        return response()->json(['token' => $token]);
+        return response()->json(array_merge($response, $data), $status);
     }
 }

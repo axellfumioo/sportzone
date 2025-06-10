@@ -15,6 +15,9 @@ Route::get('/', function () {
 Route::get('/booking', function () {
     return view('booking');
 });
+Route::get('/nitip', function () {
+    return view('nitip');
+});
 Route::get('/about', function () {
     return view('about.index');
 });
@@ -42,3 +45,5 @@ Route::get('/auth/logout', [AuthController::class, 'logout']);
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::any('/transaction/callback', [OrderController::class, 'callback']);
+Route::post('/ai/receive', [AIController::class, 'receiveMessage']);
+Route::get('/paymentdemo/{orderId}', [OrderController::class, 'demoExample']);

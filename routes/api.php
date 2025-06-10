@@ -9,5 +9,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/handler/ai/receive', [AIController::class, 'receiveMessage']);
 Route::get('/chat-token', [ChatTokenController::class, 'getToken']);

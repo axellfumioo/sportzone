@@ -58,7 +58,6 @@
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-gray-800 mb-2">Arena Gokart</h3>
                             <p class="text-gray-600 mb-4">Track gokart modern dengan panjang 500m yang dirancang untuk pemula hingga profesional. Dilengkapi dengan sistem penghitung waktu digital dan kendaraan gokart berperforma tinggi.</p>
-                            <div class="text-[#8B1E1E] font-medium">12 Gokart Tersedia</div>
                         </div>
                     </div>
 
@@ -71,7 +70,6 @@
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-gray-800 mb-2">Ruang Biliard</h3>
                             <p class="text-gray-600 mb-4">Area biliard dengan meja standar internasional dan perlengkapan premium. Suasana nyaman dengan pencahayaan yang dirancang khusus untuk permainan biliard.</p>
-                            <div class="text-[#8B1E1E] font-medium">8 Meja Tersedia</div>
                         </div>
                     </div>
 
@@ -84,7 +82,6 @@
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-gray-800 mb-2">Arena Bowling</h3>
                             <p class="text-gray-600 mb-4">Jalur bowling otomatis dengan sistem penilaian digital terbaru. Tersedia berbagai ukuran bola untuk anak-anak hingga dewasa.</p>
-                            <div class="text-[#8B1E1E] font-medium">10 Jalur Tersedia</div>
                         </div>
                     </div>
                 </div>

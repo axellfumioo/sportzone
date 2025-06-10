@@ -16,7 +16,7 @@ class chatToken extends Model
 
     protected $fillable = [
         'token',
-        'message',
+        'messages',
         'return',
     ];
 

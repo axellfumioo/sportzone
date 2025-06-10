@@ -229,29 +229,72 @@
           if (typing) typing.remove();
       }
 
+      // Get chat token on page load and save to cookies
+      let chatToken; // Variable to store token
+
+      async function initChatToken() {
+          // If token is already in sessionStorage, don't fetch again
+          if (sessionStorage.getItem('chatToken')) {
+              chatToken = sessionStorage.getItem('chatToken');
+              return;
+          }
+
+          try {
+              const res = await fetch('/api/chat-token', {
+                  credentials: 'include'
+              });
+              const data = await res.json();
+
+              // Save token in cookie (for other purposes) and sessionStorage
+              sessionStorage.setItem('chatToken', data.token);
+              chatToken = data.token;
+          } catch (err) {
+              console.error('Error getting chat token:', err);
+          }
+      }
+
+
+      // Get token from cookies
+      async function getChatToken() {
+          if (chatToken) return chatToken;
+
+          // Only use sessionStorage
+          const sessionToken = sessionStorage.getItem('chatToken');
+          if (!sessionToken) {
+              await initChatToken();
+              return chatToken;
+          }
+          return sessionToken;
+      }
+
+      // Initialize token when page loads
       async function sendMessage() {
           const token = await getChatToken();
           const userMessage = messageInput.value.trim();
           if (!userMessage) return;
+
+          sendButton.disabled = true;
+          sendButton.classList.add('cursor-progress');
 
           // Show user bubble
           createBubble(userMessage, "user");
           messageInput.value = "";
 
           // Show typing indicator
-          showTypingIndicator();
+        showTypingIndicator();
 
-          try {
-              const response = await fetch("/api/handler/ai/receive", {
-                  method: "POST"
-                  , headers: {
-                      "Content-Type": "application/json"
-                      , 'X-Chat-Token': token
-                  , }
-                  , body: JSON.stringify({
-                      message: userMessage
-                  })
-              });
+            try {
+                const response = await fetch("/ai/receive", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    'X-Chat-Token': token,
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    message: userMessage
+                })
+                });
 
               const data = await response.json();
               removeTypingIndicator();
@@ -263,10 +306,16 @@
               createBubble("Something went wrong. Please try again later.", "bot");
               console.error("Error sending message:", err);
               scrollToBottom();
+          } finally {
+              // Re-enable button and remove cursor-progress
+              sendButton.disabled = false;
+              sendButton.classList.remove('cursor-progress');
           }
       }
 
       sendButton.addEventListener("click", sendMessage);
+
+      document.addEventListener('DOMContentLoaded', initChatToken);
 
       document.addEventListener('click', (event) => {
           // Check if the click is outside both the chatBox and chatBubble
